@@ -1,11 +1,9 @@
 package com.asms.frame;
 
-import com.asms.bin.MainFrame;
-
 public class TestFrame {
 
 	public static void main(String[] args) {
-		MainFrame mf=new MainFrame();
+		TransferFrame mf=new TransferFrame();
 		mf.setVisible(true);
 
 	}

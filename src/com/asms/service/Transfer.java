@@ -6,10 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class Service {
+public class Transfer {
 
 	public static void GetFile() {
-		FileInputStream fis=null;
+		FileInputStream fis = null;
 		FileOutputStream fos = null;
 		 try {
 				fis=new FileInputStream("d:\\1.gif");
