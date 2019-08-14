@@ -3,7 +3,7 @@ package com.asms.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.asms.res.Register;
+import com.asms.res.User;
 import com.asms.tool.DButils;
 
 /**
@@ -11,7 +11,7 @@ import com.asms.tool.DButils;
  * @author Administrator
  *
  */
-public class LogFrameDao {
+public class ManagerDao {
 	DButils db= new DButils();
 	/**
 	 * ≤È’“
@@ -19,12 +19,12 @@ public class LogFrameDao {
 	 * @param name 
 	 * @throws SQLException 
 	 */
-	public 	Register  select(String name) throws SQLException{
-		String sql="select *from ADVUSER where name=?";
+	public 	User  select(String name) throws SQLException{
+		String sql="select *from advuser where name=?";
 		ResultSet rs= db.preQuery(sql,name);
-		Register reg=null;
+		User reg=null;
 		while(rs.next()){
-			reg=new Register();
+			reg=new User();
 			String name1=rs.getString("name");
 			String password1=rs.getString("password");
 			reg.setName(name1);
@@ -42,7 +42,7 @@ public class LogFrameDao {
 	 */
 	public int add(String name, String password) throws SQLException {
 		// TODO Auto-generated method stub
-		String sql="insert into ADVUSER(name,password)values(?,?)";
+		String sql="insert into advuser(name,password) values(?,?)";
 		int no=db.preUpdate(sql,name,password);
 		return 0;
 		
@@ -53,7 +53,7 @@ public class LogFrameDao {
  * @throws SQLException 
  */
 	public int  delete(String name) throws SQLException{
-		String sql="delete from ADVUSER name=?";
+		String sql="delete from advuser name=?";
 		int no=db.preUpdate(sql,name);
 		return 0;
 	}
@@ -65,7 +65,7 @@ public class LogFrameDao {
 	 */
 	public int  update(String name, String password) throws SQLException{
 		
-		String sql="update ADVUSER set password=? where id=?";
+		String sql="update advuser set password=? where id=?";
 		int no=db.preUpdate(sql,name,password);
 		
 		return 0;

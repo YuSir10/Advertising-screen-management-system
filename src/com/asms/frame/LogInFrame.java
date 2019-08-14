@@ -12,7 +12,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import com.asms.service.LogService;
+import com.asms.service.ManageUser;
 
 /**
  *  登陆界面
@@ -55,7 +55,7 @@ public class LogInFrame extends JFrame{
 			 */
 				String name=text_name.getText();
 				String password=text_password.getText();
-				LogService ls=new LogService();
+				ManageUser ls=new ManageUser();
 				  try {
 					int no= ls.login(name,password);
 					JOptionPane.showMessageDialog(null, "登陆成功");

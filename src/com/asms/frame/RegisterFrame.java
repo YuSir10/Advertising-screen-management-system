@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import com.asms.service.LogService;
+import com.asms.service.ManageUser;
 
 /**
  *注册界面
@@ -53,9 +53,9 @@ public class RegisterFrame extends JFrame{
 			public void actionPerformed(final ActionEvent e) {
 				String name=text_name.getText();
 				String password=text_password.getText();
-				LogService ls=new LogService(); 
+				ManageUser ls=new ManageUser(); 
 				try {
-					int no=ls.add(name, password);
+					int no=ls.registered(name, password);
 					JOptionPane.showMessageDialog(null, "注册成功");
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

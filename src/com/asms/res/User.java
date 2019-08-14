@@ -1,6 +1,6 @@
 package com.asms.res;
 
-public class Register {
+public class User {
   private String name;
   private String password;
   

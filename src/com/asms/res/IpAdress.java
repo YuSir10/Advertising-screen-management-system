@@ -1,6 +1,6 @@
 package com.asms.res;
 
-public class IP {
+public class IpAdress {
 	private String ip;
 
 	public String getIp() {
@@ -11,7 +11,7 @@ public class IP {
 		this.ip = ip;
 	}
 
-	public IP() {
+	public IpAdress() {
 		super();
 	}
 	

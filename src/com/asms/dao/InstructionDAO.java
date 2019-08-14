@@ -20,7 +20,7 @@ public class InstructionDAO {
 	
 	public int add (String name,String intructionName,String timeDate,String ip) throws SQLException {
 		DButils db = new DButils();
-		String sqlString = "insert into davin values (?,?,?,?)";
+		String sqlString = "insert into advinstruct values (?,?,?,?)";
 		int no = db.preUpdate(sqlString, name,intructionName,timeDate,ip);
 		db.close();
 		return no;
