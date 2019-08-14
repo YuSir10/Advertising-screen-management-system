@@ -8,5 +8,10 @@ package com.asms.frame;
  *
  */
 public class test {
+	public static void main(String[] args) {
+		WorkFrame j = new WorkFrame();		
+		j.setVisible(true);
+	}
+	
 
 }
