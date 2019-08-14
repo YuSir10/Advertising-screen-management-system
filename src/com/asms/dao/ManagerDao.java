@@ -12,7 +12,7 @@ import com.asms.tool.DButils;
  *
  */
 public class ManagerDao {
-	DButils db= new DButils();
+	
 	/**
 	 * ≤È’“
 	 * @param password 
@@ -20,6 +20,7 @@ public class ManagerDao {
 	 * @throws SQLException 
 	 */
 	public 	User  select(String name) throws SQLException{
+		DButils db= new DButils();
 		String sql="select *from advuser where name=?";
 		ResultSet rs= db.preQuery(sql,name);
 		User reg=null;
@@ -30,6 +31,7 @@ public class ManagerDao {
 			reg.setName(name1);
 			reg.setPassword(password1);
 		}
+		db.close();
 		return reg;
 		
 	}
@@ -41,9 +43,10 @@ public class ManagerDao {
 	 * @throws SQLException
 	 */
 	public int add(String name, String password) throws SQLException {
-		// TODO Auto-generated method stub
+		DButils db= new DButils();
 		String sql="insert into advuser(name,password) values(?,?)";
 		int no=db.preUpdate(sql,name,password);
+		db.close();
 		return 0;
 		
 	}
@@ -53,8 +56,10 @@ public class ManagerDao {
  * @throws SQLException 
  */
 	public int  delete(String name) throws SQLException{
+		DButils db= new DButils();
 		String sql="delete from advuser name=?";
 		int no=db.preUpdate(sql,name);
+		db.close();
 		return 0;
 	}
 	
@@ -64,10 +69,10 @@ public class ManagerDao {
 	 * @throws SQLException 
 	 */
 	public int  update(String name, String password) throws SQLException{
-		
+		DButils db= new DButils();
 		String sql="update advuser set password=? where id=?";
 		int no=db.preUpdate(sql,name,password);
-		
+		db.close();
 		return 0;
 	}
 	
