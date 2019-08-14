@@ -3,8 +3,9 @@
  */
 package com.asms.dao;
 
-import java.sql.Date;
+
 import java.sql.SQLException;
+import java.util.Date;
 
 import com.asms.tool.DButils;
 
@@ -17,12 +18,12 @@ import oracle.net.TNSAddress.Address;
 public class InstructionDAO {
 	
 	
-	public int add (String name,String intructionName,Date timeDate,String ip) throws SQLException {
+	public int add (String name,String intructionName,String timeDate,String ip) throws SQLException {
 		DButils db = new DButils();
-		String sqlString = "insert into table valuse (?,?,?,?)";
+		String sqlString = "insert into davin values (?,?,?,?)";
 		int no = db.preUpdate(sqlString, name,intructionName,timeDate,ip);
 		db.close();
-		return 0;
+		return no;
 	}
 
 }
