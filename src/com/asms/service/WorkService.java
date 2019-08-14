@@ -35,7 +35,7 @@ public class WorkService {
 			JOptionPane.showMessageDialog(null, "一次只能删一行");
 		}else if(no==0){
 	    	  // 请选择要删除的行
-			JOptionPane.showConfirmDialog(null, "确定要删除吗?");
+			int noo = JOptionPane.showConfirmDialog(null, "确定要删除吗?");
 	    	no=instructionDAO.delete(name,ip);
 	    	 
 	    } else{
