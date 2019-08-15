@@ -64,12 +64,6 @@ public class ScreenshotsFrame extends JFrame{
 		getContentPane().add(start_button);
 		
 		JButton stop_button = new JButton("\u505C\u6B62");
-		stop_button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				flag = false;
-				//fasong
-			}
-		});
 		stop_button.setBounds(504, 87, 113, 27);
 		getContentPane().add(stop_button);
 		
@@ -130,6 +124,15 @@ public class ScreenshotsFrame extends JFrame{
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();
 //				}
+			}
+		});
+		
+		
+		stop_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				flag = false;
+				
+				//fasong
 			}
 		});
 	}

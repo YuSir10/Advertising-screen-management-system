@@ -30,12 +30,12 @@ import javax.swing.JOptionPane;
 public class MainFrame extends JFrame {
 	private ArrayList<String> videoArrayList = new ArrayList<String>();
 	private ArrayList<String> pictureArrayList = new ArrayList<String>();
-	
+
 	private ManageUser manageUser = new ManageUser();
 	private String nameString;
 	private String passwordString;
-	
-	public MainFrame(String name,String password) {
+
+	public MainFrame(String name, String password) {
 		this.nameString = name;
 		this.passwordString = password;
 		setSize(new Dimension(823, 534));
@@ -77,57 +77,51 @@ public class MainFrame extends JFrame {
 		final JComboBox pictrue_combobox = new JComboBox();
 		pictrue_combobox.setBounds(363, 188, 205, 24);
 		getContentPane().add(pictrue_combobox);
-		
+
 		JButton dele_button = new JButton("\u6CE8\u9500\u672C\u8D26\u53F7");
 		dele_button.setBounds(14, 13, 113, 27);
 		getContentPane().add(dele_button);
-		
+
 		JButton update_button = new JButton("\u4FEE\u6539\u5BC6\u7801");
 		update_button.setBounds(141, 13, 113, 27);
 		getContentPane().add(update_button);
-		
+
 		JLabel label = new JLabel("\u76EE\u524D\u5728\u7EBF\u7684\u7EC8\u7AEF");
 		label.setBounds(22, 85, 105, 18);
 		getContentPane().add(label);
-		
-   //将ip传入到当前终端下拉框中
+
+		// 将ip传入到当前终端下拉框中
 		JComboBox ip_combobox = new JComboBox();
 		ip_combobox.setBounds(141, 82, 174, 24);
-		   Terminal tl=new Terminal();   
-	   ArrayList<IpAdress> Iplist = tl.getIpList();
-	   for (IpAdress ip : Iplist) {
-		   ip_combobox.addItem(ip);
-	}
-	  String IP =(String) ip_combobox.getSelectedItem();//当前下拉框中的ip
-	  
-	   
-	   
-	   
-	getContentPane().add(ip_combobox);
-	
-	   
-	
-		
+		Terminal tl = new Terminal();
+		ArrayList<IpAdress> Iplist = tl.getIpList();
+		for (IpAdress ip : Iplist) {
+			ip_combobox.addItem(ip);
+		}
+		String IP = (String) ip_combobox.getSelectedItem();// 当前下拉框中的ip
+
+		getContentPane().add(ip_combobox);
+
 		JLabel label_1 = new JLabel("\u64AD\u653E\u6A21\u5F0F");
 		label_1.setBounds(277, 298, 72, 18);
 		getContentPane().add(label_1);
-		
+
 		JComboBox model_comboBox = new JComboBox();
 		model_comboBox.setBounds(366, 295, 113, 24);
 		getContentPane().add(model_comboBox);
-		
+
 		JButton work_button = new JButton("\u67E5\u770B\u5DE5\u4F5C\u65E5\u5FD7");
 		work_button.setBounds(14, 239, 167, 27);
 		getContentPane().add(work_button);
-		
+
 		JButton screen_button = new JButton("\u67E5\u770B\u7EC8\u7AEF\u5DE5\u4F5C\u60C5\u51B5");
 		screen_button.setBounds(14, 187, 167, 27);
 		getContentPane().add(screen_button);
-		
+
 		model_comboBox.addItem("顺序播放");
 		model_comboBox.addItem("单曲循环");
 		model_comboBox.addItem("随机播放");
-		
+
 		import_pic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser("D:\\");
@@ -139,11 +133,11 @@ public class MainFrame extends JFrame {
 					String filePath = fileChooser.getSelectedFile().getAbsolutePath();// 这个就是你选择的文件夹的路径
 					videoArrayList.add(filePath);
 					pictrue_combobox.addItem(filePath);
-					
+
 				}
 			}
 		});
-		
+
 		improt_video.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser("D:\\");
@@ -159,23 +153,21 @@ public class MainFrame extends JFrame {
 				}
 			}
 		});
-		
-		
+
 		video_deleAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				videoArrayList.clear();
 				video_comboBox.removeAllItems();
 			}
 		});
-		
+
 		pictrue_deleAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				pictureArrayList.clear();
 				pictrue_combobox.removeAllItems();
 			}
 		});
-		
-		
+
 		pictrue_dele.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int index = pictrue_combobox.getSelectedIndex();
@@ -184,7 +176,7 @@ public class MainFrame extends JFrame {
 				pictrue_combobox.removeItemAt(index);
 			}
 		});
-		
+
 		video_dele.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int index = video_comboBox.getSelectedIndex();
@@ -193,55 +185,50 @@ public class MainFrame extends JFrame {
 				video_comboBox.removeItemAt(index);
 			}
 		});
-		
-		
-		
+
 		dele_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int confirmNo =  JOptionPane.showConfirmDialog(null, "确定要删除注销这个账户吗?");
-				if(confirmNo==0){
-		    		 // 真删
-		    		   // 获取行的索引
+				int confirmNo = JOptionPane.showConfirmDialog(null, "确定要删除注销这个账户吗?");
+				if (confirmNo == 0) {
+					// 真删
+					// 获取行的索引
 					try {
 						manageUser.delete(nameString, passwordString);
 						LogInFrame logInFrame = new LogInFrame();
 						logInFrame.setVisible(true);
 						dispose();
-						
+
 					} catch (SQLException e) {
 						JOptionPane.showMessageDialog(null, e.getMessage());
 						// TODO Auto-generated catch block
-						//e.printStackTrace();
+						// e.printStackTrace();
 					}
 
-		    		
-		    	}	 
+				}
 			}
 		});
-		
-		
+
 		update_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UserUpdate userUpdate = new UserUpdate();
 				userUpdate.setVisible(true);
 			}
 		});
-		
+
 		screen_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame();
 				screenshotsFrame.setVisible(true);
 			}
 		});
-		
+
 		work_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WorkFrame workFrame = new WorkFrame();
 				workFrame.setVisible(true);
 			}
 		});
-		
+
 	}
 
-	
 }

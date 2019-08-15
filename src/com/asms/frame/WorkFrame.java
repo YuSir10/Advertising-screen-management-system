@@ -41,8 +41,8 @@ public class WorkFrame extends JFrame {
 	private JTable table;
 	private JTextField empnoText;
 	private JTextField empnameText;
-	private JTextField empjobText;
-	private JTextField empsalText;
+	private JTextField text_time;
+	private JTextField text_ip;
 	private DefaultTableModel tm = new DefaultTableModel();
 	private WorkService workService = new WorkService();
 
@@ -73,44 +73,83 @@ public class WorkFrame extends JFrame {
 		panel.setLayout(null);
 
 		JLabel label = new JLabel("\u64CD\u4F5C\u7684\u7BA1\u7406\u8005");
-		label.setBounds(31, 10, 54, 15);
+		label.setBounds(10, 10, 92, 15);
 		panel.add(label);
 
 		JLabel label_1 = new JLabel("\u6267\u884C\u6307\u4EE4");
-		label_1.setBounds(216, 10, 54, 15);
+		label_1.setBounds(249, 10, 54, 15);
 		panel.add(label_1);
 
 		JLabel label_2 = new JLabel("\u6267\u884C\u65F6\u95F4");
-		label_2.setBounds(31, 41, 54, 15);
+		label_2.setBounds(10, 41, 75, 15);
 		panel.add(label_2);
 
 		JLabel lblip = new JLabel("\u64CD\u4F5C\u7684\u7EC8\u7AEFip");
-		lblip.setBounds(216, 41, 54, 15);
+		lblip.setBounds(245, 41, 83, 15);
 		panel.add(lblip);
 	
 
 		empnoText = new JTextField();
 		empnoText.setEditable(false);
-		empnoText.setBounds(95, 7, 98, 21);
+		empnoText.setBounds(108, 6, 114, 21);
 		panel.add(empnoText);
 		empnoText.setColumns(10);
 
 		empnameText = new JTextField();
 		empnameText.setColumns(10);
-		empnameText.setBounds(280, 7, 98, 21);
+		empnameText.setBounds(334, 6, 98, 21);
 		panel.add(empnameText);
 
-		empjobText = new JTextField();
-		empjobText.setColumns(10);
-		empjobText.setBounds(95, 38, 98, 21);
-		panel.add(empjobText);
+		text_time = new JTextField();
+		text_time.setColumns(10);
+		text_time.setBounds(107, 37, 114, 21);
+		panel.add(text_time);
 
-		empsalText = new JTextField();
-		empsalText.setColumns(10);
-		empsalText.setBounds(280, 38, 98, 21);
-		panel.add(empsalText);
+		text_ip = new JTextField();
+		text_ip.setColumns(10);
+		text_ip.setBounds(334, 37, 98, 21);
+		panel.add(text_ip);
 		
 		JButton addButton = new JButton("\u641C\u7D22");
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent arg0) {
+				clearTable();//清零
+			String time=text_time.getText();
+			String ip=text_ip.getText();
+			
+			try {
+				ArrayList<Worked> workedList = workService.select(time,ip);
+				for (Worked worked : workedList) {
+					tm.addRow(new Object[]{worked.getManagername(),worked.getInstructname(),worked.getAdvtime(),worked.getIpadress()});
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				//搜索
+//				 try {
+//					showTable();
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				WorkService ws = new WorkService();
+//				ArrayList<Worked> list;
+//				try {
+//					list = ws.queryAll();
+//					for (Worked wd : list) {
+//						tm.addRow(new Object[]{wd.getManagername(),wd.getInstructname(),wd.getAdvtime(),wd.getIpadress()});
+//						
+//					}
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				
+				
+			}
+		});
 		addButton.setBounds(543, 6, 93, 23);
 		panel.add(addButton);
 		
@@ -198,8 +237,8 @@ public class WorkFrame extends JFrame {
 				int rowNo =  table.getSelectedRow(); 				
 				empnoText.setText((String) table.getValueAt( rowNo,0));
 				empnameText.setText((String) table.getValueAt(rowNo,1));
-				empjobText.setText((String) table.getValueAt(rowNo,2));
-				empsalText.setText(table.getValueAt(rowNo,3).toString());
+				text_time.setText((String) table.getValueAt(rowNo,2));
+				text_ip.setText(table.getValueAt(rowNo,3).toString());
 			}
 			
 		});
@@ -217,15 +256,15 @@ public class WorkFrame extends JFrame {
 	public void clearTest() { //清空输入框
 		empnoText.setText("");
 		empnameText.setText("");
-		empjobText.setText("");
-		empsalText.setText("");
+		text_time.setText("");
+		text_ip.setText("");
 	}
 
 	public void showTable() throws Exception  { //表格显示数据
 		ArrayList<Worked> rs = workService.queryAll();
 		for (Worked work : rs) {
-			System.out.println(work.getName()+work.getOrd()+work.getIp()+work.getIp());
-			tm.addRow(new Object[]{work.getName(),work.getOrd(),work.getTime(),work.getIp()});
+			//System.out.println(work.getManagername()+work.getInstructname()+work.getAdvtime()+work.getIpadress());
+			tm.addRow(new Object[]{work.getManagername(),work.getInstructname(),work.getAdvtime(),work.getIpadress()});
 		}
 	}
 	

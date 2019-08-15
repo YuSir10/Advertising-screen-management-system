@@ -1,5 +1,6 @@
 package com.asms.service;
 
+import java.lang.annotation.Retention;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -17,13 +18,13 @@ public class WorkService {
 	 * @throws SQLException
 	 */
 	 public  ArrayList<Worked> queryAll() throws SQLException {
-		ArrayList<Worked> alist = instructionDAO.queryAll();
+		ArrayList<Worked> list = instructionDAO.queryAll();
 		
-		if (alist == null) {
+		if (list == null) {
 			throw new RuntimeException("还没有数据呢");
 		}
 		 
-		return alist;
+		return list;
 	}
 	 
 	 
@@ -39,6 +40,16 @@ public class WorkService {
 			throw new RuntimeException("记录没有删除成功");
 		}
 	}
+
+
+	public ArrayList<Worked> select(String time, String ip) throws Exception {
+		// TODO Auto-generated method stub
+		ArrayList<Worked> list = instructionDAO.Select(time,ip);
+		return list;
+		
+		
+	}
 	
 
 }
+

@@ -5,44 +5,46 @@ package com.asms.res;
  *
  */
 public class Worked {
-	private String name;
-	private String ip;
-	private String ord;
-	private String time;
+	private String managername;
+	private String instructname;
+	private String advtime;
+	private String ipadress;
 	
 	
 	
-	public String getName() {
-		return name;
+	
+	public String getManagername() {
+		return managername;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setManagername(String managername) {
+		this.managername = managername;
 	}
-	public String getIp() {
-		return ip;
+	public String getInstructname() {
+		return instructname;
 	}
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setInstructname(String instructname) {
+		this.instructname = instructname;
 	}
-	public String getOrd() {
-		return ord;
+	public String getAdvtime() {
+		return advtime;
 	}
-	public void setOrd(String ord) {
-		this.ord = ord;
+	public void setAdvtime(String advtime) {
+		this.advtime = advtime;
 	}
-	public String getTime() {
-		return time;
+	public String getIpadress() {
+		return ipadress;
 	}
-	public void setTime(String time) {
-		this.time = time;
+	public void setIpadress(String ipadress) {
+		this.ipadress = ipadress;
 	}
 	public Worked() {
 		super();
 	}
-	public Worked(String name,String ip,String ord,String time){
-		this.name = name;
-		this.ip = ip;
-		this.ord = ord;
-		this.time = time;
+	public Worked(String managername,String instructname,String advtime,String ipadress){
+		this.managername = managername;
+		this.instructname = instructname;
+		this.advtime = advtime;
+		this.ipadress = ipadress;
 	}
+	
 }
