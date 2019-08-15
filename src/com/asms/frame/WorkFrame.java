@@ -47,7 +47,6 @@ public class WorkFrame extends JFrame {
 	private WorkService workService = new WorkService();
 
 	public WorkFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setSize(new Dimension(718, 538));
 		setTitle("\u8868\u683C\u6A21\u578B");

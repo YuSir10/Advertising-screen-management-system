@@ -1,40 +1,32 @@
 package com.asms.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ScreenshotsService {
+	
 
-	public void look() throws IOException {
+	public void getPictrue(String ipnameString) throws IOException {
 		// TODO Auto-generated method stub
-		ServerSocket ss = new ServerSocket(1000);
-
-		// 1发送指令
-		// *****
-
-		// 2接收
-		// 读取图片
-		Socket sk = ss.accept();
-		InputStream is = sk.getInputStream();
-		byte[] bt = new byte[1024 * 4];
-		int len = 0;
-		while ((len = is.read(bt)) != -1) {
-        //	    new String(bt, 0, len);
-		// 把图片写于本地文件夹
-        FileOutputStream fs = new FileOutputStream("d://tupian.png");
-		fs.write(bt, 0, len);
-		fs.flush();
-	}
+		Socket socket = null;
+		ServerSocket ss = new ServerSocket(7777);
+		while (true) {
+			socket = ss.accept();
+			ScreenThread screenThread = new ScreenThread(socket);
 		}
-		
-		
+
+	}
 
 	public void stop() {
 		// TODO Auto-generated method stub
-
+		//
+		File picFile = new File("F:\\jietu\\jitu.jpg");
+		picFile.delete();
 	}
 
 }

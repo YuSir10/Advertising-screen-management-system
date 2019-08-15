@@ -65,6 +65,8 @@ public class LogInFrame extends JFrame{
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null,e1.getMessage());
+					text_name.setText("");
+					text_password.setText("");
 					//e1.printStackTrace();
 				}
 				  
