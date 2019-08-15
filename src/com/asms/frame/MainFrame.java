@@ -203,5 +203,27 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
+		
+		update_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UserUpdate userUpdate = new UserUpdate();
+				userUpdate.setVisible(true);
+			}
+		});
+		
+		screen_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame();
+				screenshotsFrame.setVisible(true);
+			}
+		});
+		
+		work_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WorkFrame workFrame = new WorkFrame();
+				workFrame.setVisible(true);
+			}
+		});
+		
 	}
 }

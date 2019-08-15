@@ -58,10 +58,11 @@ public class RegisterFrame extends JFrame{
 				try {
 					int no=ls.registered(name, password);
 					JOptionPane.showMessageDialog(null, "×¢²á³É¹¦");
+					dispose();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null,e1.getMessage());
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 				
 			}
