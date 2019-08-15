@@ -26,6 +26,7 @@ public class RegisterFrame extends JFrame{
 	private JTextField text_name;
 	public RegisterFrame() {
 		super();
+		setLocationRelativeTo(null);
 		setSize(440,361);
 		setTitle("×¢²á´°¿Ú");
 		getContentPane().setLayout(null);

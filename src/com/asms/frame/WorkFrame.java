@@ -52,7 +52,7 @@ public class WorkFrame extends JFrame {
 		setSize(new Dimension(718, 538));
 		setTitle("\u8868\u683C\u6A21\u578B");
 		getContentPane().setLayout(null);
-
+		setLocationRelativeTo(null);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 64, 682, 295);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);

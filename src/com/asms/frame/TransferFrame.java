@@ -28,6 +28,7 @@ public class TransferFrame extends JFrame {
 	Transfer transfer = new Transfer();
 	
 	public TransferFrame() {
+		
 		getContentPane().setLayout(null);
 		setSize(1000, 1000);
 		JButton btnNewButton = new JButton("\u5BFC\u5165\u89C6\u9891\u8D44\u6E90");

@@ -63,13 +63,10 @@ public class ManageUser {
 	 * @throws SQLException 
 	 */
 	public int  delete(String name,String password) throws SQLException{
-		if ("".equals(name)) {
-			throw new RuntimeException("用户名不能为空");
-		}
-		if ("".equals(password)) {
-			throw new RuntimeException("密码不能为空");
-		}
 		int no=managerDao.delete(name);
+		if (no == 0) {
+			throw new RuntimeException("用户没有注销成功");
+		}
 		return 0;
 		
 	}

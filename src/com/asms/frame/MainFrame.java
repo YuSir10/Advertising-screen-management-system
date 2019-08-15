@@ -10,24 +10,35 @@ import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JToggleButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.asms.service.ManageUser;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  * @author 鱼鱼鱼
  *
  */
 public class MainFrame extends JFrame {
-	ArrayList<String> videoArrayList = new ArrayList<String>();
-	ArrayList<String> pictureArrayList = new ArrayList<String>();
+	private ArrayList<String> videoArrayList = new ArrayList<String>();
+	private ArrayList<String> pictureArrayList = new ArrayList<String>();
 	
-	public MainFrame() {
+	private ManageUser manageUser = new ManageUser();
+	private String nameString;
+	private String passwordString;
+	
+	public MainFrame(String name,String password) {
+		this.nameString = name;
+		this.passwordString = password;
 		setSize(new Dimension(823, 534));
 		getContentPane().setLayout(null);
-		
+		setLocationRelativeTo(null);
 		JButton improt_video = new JButton("\u5BFC\u5165\u89C6\u9891\u8D44\u6E90");
 		improt_video.setBounds(226, 238, 123, 29);
 		getContentPane().add(improt_video);
@@ -164,6 +175,31 @@ public class MainFrame extends JFrame {
 				System.out.println(index);
 				videoArrayList.remove(index);
 				video_comboBox.removeItemAt(index);
+			}
+		});
+		
+		
+		
+		dele_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int confirmNo =  JOptionPane.showConfirmDialog(null, "确定要删除注销这个账户吗?");
+				if(confirmNo==0){
+		    		 // 真删
+		    		   // 获取行的索引
+					try {
+						manageUser.delete(nameString, passwordString);
+						LogInFrame logInFrame = new LogInFrame();
+						logInFrame.setVisible(true);
+						dispose();
+						
+					} catch (SQLException e) {
+						JOptionPane.showMessageDialog(null, e.getMessage());
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+					}
+
+		    		
+		    	}	 
 			}
 		});
 		

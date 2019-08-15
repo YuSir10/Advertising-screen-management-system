@@ -59,10 +59,13 @@ public class LogInFrame extends JFrame{
 				  try {
 					int no= ls.login(name,password);
 					JOptionPane.showMessageDialog(null, "µÇÂ½³É¹¦");
+					MainFrame mainFrame = new MainFrame(name, password);
+					mainFrame.setVisible(true);
+					dispose();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null,e1.getMessage());
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 				  
 				  /**
@@ -89,6 +92,10 @@ public class LogInFrame extends JFrame{
 		button_1.setText("×¢²á");
 		button_1.setBounds(250, 252, 106, 28);
 		getContentPane().add(button_1);
+		
+		setLocationRelativeTo(null);
 	}
+	
+
 
 }

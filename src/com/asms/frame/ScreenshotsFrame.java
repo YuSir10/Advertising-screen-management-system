@@ -33,6 +33,7 @@ public class ScreenshotsFrame extends JFrame{
 	ScreenshotsService wk=new ScreenshotsService();
 	public ScreenshotsFrame() throws FileNotFoundException, IOException {
 		super();
+		setLocationRelativeTo(null);
 		setSize(600,600);
 		getContentPane().setLayout(new GridLayout(2, 1));
 
