@@ -61,22 +61,11 @@ public class ManageUser {
 	 * 注销 删除
 	 * @throws SQLException 
 	 */
-<<<<<<< HEAD
+
 	public int  delete(String name,String password) throws SQLException{
 		int no=managerDao.delete(name);
 		if (no == 0) {
 			throw new RuntimeException("用户没有注销成功");
-=======
-	public int  delete(String name) throws SQLException{
-		if ("".equals(name)) {
-			throw new RuntimeException("用户名不能为空");
-		}
-		User reg = managerDao.select(name);//数据库用户名校验
-		if (reg==null) {
-			throw new RuntimeException("该用户尚未注册");
-		}else{
-			int no=managerDao.delete(name);
->>>>>>> 0b35aeeea443fcd3251c1b29b35c592727ccd505
 		}
 		return 0;
 		

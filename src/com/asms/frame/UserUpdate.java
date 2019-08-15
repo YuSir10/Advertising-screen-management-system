@@ -14,10 +14,10 @@ import javax.swing.JTextField;
 import com.asms.dao.ManagerDao;
 import com.asms.service.ManageUser;
 
-public class ceshidenglu extends JFrame{
+public class UserUpdate extends JFrame{
 	private JPasswordField text_password;
 	private JTextField text_name;
-	public ceshidenglu() {
+	public UserUpdate() {
 		super();
 		setSize(462,348);
 		setTitle("ÐÞ¸ÄÒ³Ãæ");
