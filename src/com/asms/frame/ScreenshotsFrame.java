@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -27,6 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.asms.res.IpAdress;
+import com.asms.service.InstructionSend;
 import com.asms.service.ScreenshotsService;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -35,12 +37,15 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 public class ScreenshotsFrame extends JFrame{
+	private String usernameString;
 	private Component lblImage;
 	private ArrayList<IpAdress> iplist = new ArrayList<IpAdress>();
-	ScreenshotsService screenshotsService =new ScreenshotsService();
+	private ScreenshotsService screenshotsService =new ScreenshotsService();
+	private InstructionSend instructionSend = new InstructionSend(getName());
 	private static boolean  flag = true;
 	
-	public ScreenshotsFrame()  {
+	public ScreenshotsFrame(ArrayList<IpAdress> iplist, String username)  {
+		this.usernameString = username;
 		this.iplist = iplist;
 		setLocationRelativeTo(null);
 		setSize(666,482);
@@ -85,35 +90,53 @@ public class ScreenshotsFrame extends JFrame{
 //		
 		start_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String resultString = null;
 				try {
-					screenshotsService.getPictrue("");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						File pictrue = new File("F:\\jietu\\jitu.jpg");
-						while(flag) {
-							if (pictrue.exists()) {
-								JPanel p = new JPanel() {
-						            public void paintComponent(Graphics g) {
-						            	String url = "F:\\jietu\\jitu.jpg";
-						                super.paintComponent(g);
-						                ImageIcon ii = new ImageIcon(url);
-						                g.drawImage(ii.getImage(), 0,0, getSize().width, getSize().height, this);
-						            }
-						        };
-						        p.setBounds(200, 152, 300, 241);
-						        p.add(panel);//如果覆盖的是pain()方法，按钮会被
-						        getContentPane().add(p);
-						        setVisible(true);
-							}
+					resultString = instructionSend.screenStart(usernameString);
+					if (resultString.equals("OK")) {
+						try {
+							screenshotsService.getPictrue("");
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							//e.printStackTrace();
 						}
-						
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								File pictrue = new File("F:\\jietu\\jitu.jpg");
+								while(flag) {
+									if (pictrue.exists()) {
+										JPanel p = new JPanel() {
+								            public void paintComponent(Graphics g) {
+								            	String url = "F:\\jietu\\jitu.jpg";
+								                super.paintComponent(g);
+								                ImageIcon ii = new ImageIcon(url);
+								                g.drawImage(ii.getImage(), 0,0, getSize().width, getSize().height, this);
+								            }
+								        };
+								        p.setBounds(200, 152, 300, 241);
+								        p.add(panel);//如果覆盖的是pain()方法，按钮会被
+								        getContentPane().add(p);
+								        setVisible(true);
+									}
+								}
+								
+							}
+						}).start();
 					}
-				}).start();
+				} catch (UnknownHostException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+					// TODO Auto-generated catch block
+					//e1.printStackTrace();
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+					// TODO Auto-generated catch block
+					//e1.printStackTrace();
+				}
+				
+				
+	
+				
 				
 				
 
@@ -131,6 +154,21 @@ public class ScreenshotsFrame extends JFrame{
 		stop_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				flag = false;
+				String resultString;
+				try {
+					resultString = instructionSend.screenStop(usernameString);
+					if (resultString.equals("OK")) {
+						
+					}
+				} catch (UnknownHostException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
 				
 				//fasong
 			}

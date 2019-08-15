@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -17,8 +19,11 @@ import javax.swing.JToggleButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.asms.res.IpAdress;
+import com.asms.service.InstructionSend;
 import com.asms.service.ManageUser;
+import com.asms.service.ScreenshotsService;
 import com.asms.service.Terminal;
+import com.asms.service.Transfer;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,10 +35,15 @@ import javax.swing.JOptionPane;
 public class MainFrame extends JFrame {
 	private ArrayList<String> videoArrayList = new ArrayList<String>();
 	private ArrayList<String> pictureArrayList = new ArrayList<String>();
+	private ArrayList<IpAdress> Iplist = new ArrayList<IpAdress>();
 
 	private ManageUser manageUser = new ManageUser();
 	private String nameString;
 	private String passwordString;
+	private Terminal terminal = new Terminal(); // 获取ip
+	private Transfer transfer = new Transfer(); // 做传输的业务
+	private InstructionSend instructionSend = new InstructionSend(nameString); // 发送指令的业务
+	private ScreenshotsService screenshotsService = new ScreenshotsService(); // 获取截图的业务
 
 	public MainFrame(String name, String password) {
 		this.nameString = name;
@@ -91,10 +101,27 @@ public class MainFrame extends JFrame {
 		getContentPane().add(label);
 
 		// 将ip传入到当前终端下拉框中
-		JComboBox ip_combobox = new JComboBox();
+		final JComboBox ip_combobox = new JComboBox();
 		ip_combobox.setBounds(141, 82, 174, 24);
-		Terminal tl = new Terminal();
-		ArrayList<IpAdress> Iplist = tl.getIpList();
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					Iplist = terminal.getIp();
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					// TODO Auto-generated catch block
+					// e.printStackTrace();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					// TODO Auto-generated catch block
+					// e.printStackTrace();
+				}
+			}
+		}).start();
+
 		for (IpAdress ip : Iplist) {
 			ip_combobox.addItem(ip);
 		}
@@ -121,6 +148,14 @@ public class MainFrame extends JFrame {
 		model_comboBox.addItem("顺序播放");
 		model_comboBox.addItem("单曲循环");
 		model_comboBox.addItem("随机播放");
+
+		JButton play_button = new JButton("\u64AD\u653E");
+		play_button.setBounds(356, 81, 113, 27);
+		getContentPane().add(play_button);
+
+		JButton stop_button = new JButton("\u6682\u505C");
+		stop_button.setBounds(500, 81, 113, 27);
+		getContentPane().add(stop_button);
 
 		import_pic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -217,7 +252,7 @@ public class MainFrame extends JFrame {
 
 		screen_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame();
+				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame(Iplist, nameString);
 				screenshotsFrame.setVisible(true);
 			}
 		});
@@ -226,6 +261,76 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				WorkFrame workFrame = new WorkFrame();
 				workFrame.setVisible(true);
+			}
+		});
+
+		apply.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String ipString = ip_combobox.getSelectedItem().toString();
+				try {
+					String resultString = instructionSend.sendPictureInstruction(ipString);
+					if (resultString.equals("OK")) {
+						instructionSend.addInstruction(instructionSend.getSendpicture());
+						String picturePath = pictrue_combobox.getSelectedItem().toString();
+						transfer.pushPictrue(picturePath);
+					}
+					resultString = instructionSend.sendVideoInstruction(ipString);
+					if (resultString.equals("OK")) {
+						String videoPath = video_comboBox.getSelectedItem().toString();
+						transfer.pushVideo(videoPath);
+					}
+					// 发送播放模式
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					//e.printStackTrace();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
+			}
+		});
+
+		play_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String ipString = ip_combobox.getSelectedItem().toString();
+				try {
+					String resultString = instructionSend.startPlay(ipString);
+					if (resultString.equals("OK")) {
+
+					}
+				} catch (UnknownHostException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
+			}
+		});
+
+		stop_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ipString = ip_combobox.getSelectedItem().toString();
+				try {
+					String resultString = instructionSend.stopPlay(ipString);
+					if (resultString.equals("OK")) {
+
+					}
+				} catch (UnknownHostException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
+
 			}
 		});
 

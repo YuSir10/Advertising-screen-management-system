@@ -17,7 +17,7 @@ public class Terminal {
 	 
 	private TerminalDao terminalDao = new TerminalDao();
 	
-	public IpAdress getIp() throws IOException, Exception {
+	public ArrayList<IpAdress> getIp() throws IOException, Exception {
 		
 		ServerSocket serverSocket = new ServerSocket(7744);// 创建服务器，等待客户端连接
 		// 实现多个客户端连接服务器
@@ -36,7 +36,7 @@ public class Terminal {
 				throw new RuntimeException("ip未更新");
 			}
 			addip(terminalIp);
-			return terminalIp;
+			return ipList;
 		}
 		
 	}
@@ -50,10 +50,7 @@ public class Terminal {
 	
 	
 	
-	public ArrayList<IpAdress> getIpList() {
-		
-		return ipList;
-	}
+
 	
 	public IpAdress getip(String ipname) {
 		for (IpAdress ip : ipList) {

@@ -34,14 +34,14 @@ public class InstructionSend {
 	private String ipAdress;
 	private InstructionDAO instructionDAO = new InstructionDAO();
 
-	public InstructionSend(String managerName, String ipAdress) {
+	public InstructionSend(String managerName) {
 		// TODO Auto-generated constructor stub
 		this.managerName = managerName;
-		this.ipAdress = ipAdress;
+		
 	}
 
-	public String sendPictureInstruction() throws UnknownHostException, IOException {
-		Socket socket = new Socket(ip, INStRUCTINON_PORT);
+	public String sendPictureInstruction(String ipString) throws UnknownHostException, IOException {
+		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(SENDPICTURE.getBytes());
 		os.flush();
@@ -63,8 +63,8 @@ public class InstructionSend {
 		return Instruction;
 	}
 
-	public String sendVideoInstruction() throws UnknownHostException, IOException {
-		Socket socket = new Socket(ip, INStRUCTINON_PORT);
+	public String sendVideoInstruction(String ipString) throws UnknownHostException, IOException {
+		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(SENDVIDEO.getBytes());
 		os.flush();
@@ -86,8 +86,8 @@ public class InstructionSend {
 		return Instruction;
 	}
 
-	public String screenStart() throws UnknownHostException, IOException {
-		Socket socket = new Socket(ip, INStRUCTINON_PORT);
+	public String screenStart(String ipString) throws UnknownHostException, IOException {
+		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(SCREENSTART.getBytes());
 		os.flush();
@@ -109,8 +109,8 @@ public class InstructionSend {
 		return Instruction;
 	}
 
-	public String screenStop() throws UnknownHostException, IOException {
-		Socket socket = new Socket(ip, INStRUCTINON_PORT);
+	public String screenStop(String ipString) throws UnknownHostException, IOException {
+		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(SCREENSTOP.getBytes());
 		os.flush();
@@ -132,8 +132,8 @@ public class InstructionSend {
 		return Instruction;
 	}
 
-	public String startPlay() throws UnknownHostException, IOException {
-		Socket socket = new Socket(ip, INStRUCTINON_PORT);
+	public String startPlay(String ipString) throws UnknownHostException, IOException {
+		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(STARTPLAY.getBytes());
 		os.flush();
@@ -155,8 +155,8 @@ public class InstructionSend {
 		return Instruction;
 	}
 
-	public String stopPlay() throws UnknownHostException, IOException {
-		Socket socket = new Socket(ip, INStRUCTINON_PORT);
+	public String stopPlay(String ipString) throws UnknownHostException, IOException {
+		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(STOPPLAY.getBytes());
 		os.flush();
@@ -187,5 +187,31 @@ public class InstructionSend {
 			throw new RuntimeException("数据没有插入");
 		}
 	}
+
+	public static String getSendpicture() {
+		return SENDPICTURE;
+	}
+
+	public static String getSendvideo() {
+		return SENDVIDEO;
+	}
+
+	public static String getStartplay() {
+		return STARTPLAY;
+	}
+
+	public static String getStopplay() {
+		return STOPPLAY;
+	}
+
+	public static String getScreenstart() {
+		return SCREENSTART;
+	}
+
+	public static String getScreenstop() {
+		return SCREENSTOP;
+	}
+	
+	
 
 }

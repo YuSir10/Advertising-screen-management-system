@@ -21,7 +21,7 @@ public class Transfer {
 		
 		//FileOutputStream fos = null;
 		Socket socket = new Socket("192.168.0.108",7766);
-		FileInputStream fis =new FileInputStream("d:\\1.gif");//读取本地文件
+		FileInputStream fis =new FileInputStream(pictrueFilePath);//读取本地文件
 		OutputStream os = socket.getOutputStream();
 		byte[] buff = new byte[1024];
 		int len = 0;
