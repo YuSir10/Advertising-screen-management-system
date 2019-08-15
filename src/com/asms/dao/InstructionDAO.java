@@ -23,7 +23,7 @@ public class InstructionDAO {
 	
 	public int add (String name,String intructionName,String timeDate,String ip) throws SQLException {
 		DButils db = new DButils();
-		String sqlString = "insert into advinstruct values (?,?,?,?)";
+		String sqlString = "insert into advinstruct values (advnumber.nextval,?,?,?,?)";
 		int no = db.preUpdate(sqlString, name,intructionName,timeDate,ip);
 		db.close();
 		return no;
@@ -34,16 +34,16 @@ public class InstructionDAO {
 		 * 查询
 		 */
 		DButils db = new DButils();
-		String sql = "select * from WORK";
+		String sql = "select managername,instructname,advtime,ipadress from advinstruct order by advno";
 		ResultSet rs = db.preQuery(sql);// 返回的结果集
 		Worked wk = null;
 		ArrayList<Worked> list = new ArrayList<Worked>();
 		while (rs.next()) {
 			wk = new Worked();
-			wk.setName(rs.getString("name"));
-			wk.setIp(rs.getString("ip"));
-			wk.setOrd(rs.getString("ord"));
-			wk.setTime(rs.getString("time"));
+			wk.setName(rs.getString("managername"));
+			wk.setIp(rs.getString("ipadress"));
+			wk.setOrd(rs.getString("instructname"));
+			wk.setTime(rs.getString("advtime"));
 			list.add(wk);
 		}
 		db.close();
@@ -56,12 +56,12 @@ public class InstructionDAO {
 	 * @param selectRow
 	 */
 
-	public int delete(String name, String ip) throws SQLException {
+	public int delete(String time, String ip) throws SQLException {
 		DButils db = new DButils();
-		String sql = "delete from work where name=? and ip=?";
-		int no = db.preUpdate(sql, name, ip);
+		String sql = "delete from advinstruct where advtime=? and ipadress=?";
+		int no = db.preUpdate(sql, time, ip);
 		db.close();
-		return 0;
+		return no;
 	}
 
 

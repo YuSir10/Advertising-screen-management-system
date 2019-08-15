@@ -27,11 +27,11 @@ import com.asms.service.ScreenshotsService;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-public class Screenshots extends JFrame{
+public class ScreenshotsFrame extends JFrame{
 	private JComboBox comboBox;
 	private Component lblImage;
 	ScreenshotsService wk=new ScreenshotsService();
-	public Screenshots() throws FileNotFoundException, IOException {
+	public ScreenshotsFrame() throws FileNotFoundException, IOException {
 		super();
 		setSize(600,600);
 		getContentPane().setLayout(new GridLayout(2, 1));
