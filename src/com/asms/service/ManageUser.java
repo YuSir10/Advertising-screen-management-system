@@ -58,4 +58,41 @@ public class ManageUser {
 		return 0;
 		
 	}
+	/**
+	 * 注销 删除
+	 * @throws SQLException 
+	 */
+	public int  delete(String name,String password) throws SQLException{
+		if ("".equals(name)) {
+			throw new RuntimeException("用户名不能为空");
+		}
+		if ("".equals(password)) {
+			throw new RuntimeException("密码不能为空");
+		}
+		int no=managerDao.delete(name);
+		return 0;
+		
+	}
+	
+	/**
+	 * 修改 密码
+	 * @throws SQLException 
+	 */
+	public int  update(String name,String password) throws SQLException{
+		if ("".equals(name)) {
+			throw new RuntimeException("用户名不能为空");
+		}
+		if ("".equals(password)) {
+			throw new RuntimeException("密码不能为空");
+		}
+		int no=managerDao.update(name,password);
+		
+		return 0;
+	}
+	
+	
+	
+	
+	
+	
 }
