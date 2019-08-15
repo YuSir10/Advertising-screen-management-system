@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ScreenshotsService {
 	
 
-	public void getPictrue(String ipnameString) throws IOException {
+	public void getPictrue(String ipnameString) throws Exception {
 		// TODO Auto-generated method stub
 		Socket socket = null;
 		ServerSocket ss = new ServerSocket(7777);

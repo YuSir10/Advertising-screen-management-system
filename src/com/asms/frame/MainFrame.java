@@ -133,7 +133,7 @@ public class MainFrame extends JFrame {
 		label_1.setBounds(277, 298, 72, 18);
 		getContentPane().add(label_1);
 
-		JComboBox model_comboBox = new JComboBox();
+		final JComboBox model_comboBox = new JComboBox();
 		model_comboBox.setBounds(366, 295, 113, 24);
 		getContentPane().add(model_comboBox);
 
@@ -145,7 +145,7 @@ public class MainFrame extends JFrame {
 		screen_button.setBounds(14, 187, 167, 27);
 		getContentPane().add(screen_button);
 
-		model_comboBox.addItem("顺序播放");
+		
 		model_comboBox.addItem("单曲循环");
 		model_comboBox.addItem("随机播放");
 
@@ -233,7 +233,7 @@ public class MainFrame extends JFrame {
 						logInFrame.setVisible(true);
 						dispose();
 
-					} catch (SQLException e) {
+					} catch (Exception e) {
 						JOptionPane.showMessageDialog(null, e.getMessage());
 						// TODO Auto-generated catch block
 						// e.printStackTrace();
@@ -276,19 +276,22 @@ public class MainFrame extends JFrame {
 					}
 					resultString = instructionSend.sendVideoInstruction(ipString);
 					if (resultString.equals("OK")) {
+						instructionSend.addInstruction(instructionSend.getSendvideo());
 						String videoPath = video_comboBox.getSelectedItem().toString();
 						transfer.pushVideo(videoPath);
 					}
 					// 发送播放模式
+					String model = model_comboBox.getSelectedItem().toString();
+					if (model.equals("单曲循环")) {
+						instructionSend.playModel(ipString,1);
+					}else {
+						instructionSend.playModel(ipString, 2);
+					}
 
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, e.getMessage());
-					//e.printStackTrace();
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					// TODO Auto-generated catch block
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
 			}
 		});
@@ -299,16 +302,12 @@ public class MainFrame extends JFrame {
 				try {
 					String resultString = instructionSend.startPlay(ipString);
 					if (resultString.equals("OK")) {
-
+						instructionSend.addInstruction(instructionSend.getStartplay());
 					}
-				} catch (UnknownHostException e) {
+				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					// TODO Auto-generated catch block
-					//e.printStackTrace();
-				} catch (IOException e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
 			}
 		});
@@ -319,16 +318,12 @@ public class MainFrame extends JFrame {
 				try {
 					String resultString = instructionSend.stopPlay(ipString);
 					if (resultString.equals("OK")) {
-
+						instructionSend.addInstruction(instructionSend.getStopplay());
 					}
-				} catch (UnknownHostException e1) {
+				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 					// TODO Auto-generated catch block
-					//e.printStackTrace();
-				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage());
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
 
 			}

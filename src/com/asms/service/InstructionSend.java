@@ -29,6 +29,8 @@ public class InstructionSend {
 	private static final String STOPPLAY = "stop";
 	private static final String SCREENSTART = "screen_start";
 	private static final String SCREENSTOP = "screen_stop";
+	private static final String SINGLELOOP = "single_loop";
+	private static final String SHUFFLE = "shuffle";
 
 	private String managerName;
 	private String ipAdress;
@@ -53,13 +55,6 @@ public class InstructionSend {
 		os.close();
 		is.close();
 
-		try {
-			this.addInstruction(SENDPICTURE);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-			// e.printStackTrace();
-		}
 		return Instruction;
 	}
 
@@ -76,13 +71,6 @@ public class InstructionSend {
 		os.close();
 		is.close();
 
-		try {
-			this.addInstruction(SENDVIDEO);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-			// e.printStackTrace();
-		}
 		return Instruction;
 	}
 
@@ -99,13 +87,6 @@ public class InstructionSend {
 		os.close();
 		is.close();
 
-		try {
-			this.addInstruction(SCREENSTART);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-			// e.printStackTrace();
-		}
 		return Instruction;
 	}
 
@@ -122,13 +103,6 @@ public class InstructionSend {
 		os.close();
 		is.close();
 
-		try {
-			this.addInstruction(SCREENSTOP);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-			// e.printStackTrace();
-		}
 		return Instruction;
 	}
 
@@ -145,13 +119,6 @@ public class InstructionSend {
 		os.close();
 		is.close();
 
-		try {
-			this.addInstruction(STARTPLAY);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-			// e.printStackTrace();
-		}
 		return Instruction;
 	}
 
@@ -168,16 +135,30 @@ public class InstructionSend {
 		os.close();
 		is.close();
 
-		try {
-			this.addInstruction(STOPPLAY);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-			// e.printStackTrace();
-		}
+
 		return Instruction;
 	}
 
+	public String playModel(String ipString,int index) throws UnknownHostException, IOException {
+		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
+		OutputStream os = socket.getOutputStream();
+		if (index == 1) {
+			os.write(SINGLELOOP.getBytes());
+		}else {
+			os.write(SHUFFLE.getBytes());
+		}
+		
+		os.flush();
+
+		InputStream is = socket.getInputStream();
+		byte[] buff = new byte[20];
+		int len = is.read(buff);
+		String Instruction = new String(buff, 0, len);
+		os.close();
+		is.close();
+
+		return Instruction;
+	}
 	public void addInstruction(String instructionName) throws Exception {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss ");
