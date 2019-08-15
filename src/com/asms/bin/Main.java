@@ -6,6 +6,7 @@ package com.asms.bin;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
+import com.asms.frame.MainFrame;
 import com.asms.frame.WorkFrame;
 import com.asms.service.InstructionSend;
 
@@ -15,7 +16,7 @@ import com.asms.service.InstructionSend;
  */
 public class Main {
 	public static void main(String[] args) {
-		WorkFrame workFrame = new WorkFrame();
-		workFrame.setVisible(true);
+		MainFrame mainFrame = new MainFrame();
+		mainFrame.setVisible(true);
 	}
 }

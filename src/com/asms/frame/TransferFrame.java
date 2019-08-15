@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Component;
@@ -24,7 +25,8 @@ public class TransferFrame extends JFrame {
 	
 	private static ArrayList<String> pictureArrayList = new ArrayList<String>();
 	private static ArrayList<String> videoArrayList = new ArrayList<String>();
-
+	Transfer transfer = new Transfer();
+	
 	public TransferFrame() {
 		getContentPane().setLayout(null);
 		setSize(1000, 1000);
@@ -92,6 +94,16 @@ public class TransferFrame extends JFrame {
 
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+					try {
+						transfer.IPAccept();
+						transfer.pushPictrue((String)comboBox_1.getSelectedItem());//获取资源
+						transfer.pushVideo((String)comboBox.getSelectedItem());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
 				
 			}
 		});
