@@ -20,22 +20,20 @@ public class Terminal {
 		ServerSocket serverSocket = new ServerSocket(7744);// 创建服务器，等待客户端连接
 		// 实现多个客户端连接服务器
 		while (true) {
-			IpAdress saveIp = new IpAdress();
+			IpAdress terminalIp  = new IpAdress();
 			Socket clientSocket = serverSocket.accept();
 			InputStream is = clientSocket.getInputStream();
 			byte[] ipbuff = new byte[1024];
 			int len = is.read(ipbuff);
 			String ipname = new String (ipbuff,0,len);
-			saveIp.setIp(ipname);
+			terminalIp.setIp(ipname);
 			
 			int no = terminalDao.addIp(ipname);
 			if (no == 0) {
 				throw new RuntimeException("ip未更新");
 			}
-			addip(saveIp);
-			
-
-			return saveIp;
+			addip(terminalIp);
+			return terminalIp;
 		}
 		
 	}

@@ -17,31 +17,27 @@ public class WorkService {
 	 * @throws SQLException
 	 */
 	 public  ArrayList<Worked> queryAll() throws SQLException {
-		 ArrayList<Worked> alist = instructionDAO.queryAll();
+		ArrayList<Worked> alist = instructionDAO.queryAll();
+		
+		if (alist == null) {
+			throw new RuntimeException("还没有数据呢");
+		}
 		 
 		return alist;
 	}
+	 
+	 
 	 /**
 	  * 删除
 	 * @param ip 
 	 * @param selectRow 
 	 * @throws SQLException 
 	  */
-	public void delete(String name, String ip) throws SQLException {
-		// TODO Auto-generated method stub
-		int no=0;
-		if (no>1) {
-			//一次只能删除一行
-			JOptionPane.showMessageDialog(null, "一次只能删一行");
-		}else if(no==0){
-	    	  // 请选择要删除的行
-			int noo = JOptionPane.showConfirmDialog(null, "确定要删除吗?");
-	    	no=instructionDAO.delete(name,ip);
-	    	 
-	    } else{
-	    	 JOptionPane.showMessageDialog(null, "请选择要删除的行");
-	    }
-		
+	public void delete(String time, String ip) throws SQLException {
+		int no = instructionDAO.delete(time, ip);
+		if (no == 0 ) {
+			throw new RuntimeException("记录没有删除成功");
+		}
 	}
 	
 
