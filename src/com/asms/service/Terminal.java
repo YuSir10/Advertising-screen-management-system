@@ -14,9 +14,11 @@ import com.asms.res.TerminalThread;
 
 public class Terminal {
 	private static  ArrayList<IpAdress> ipList = new ArrayList<IpAdress>();
+	 
 	private TerminalDao terminalDao = new TerminalDao();
 	
 	public IpAdress getIp() throws IOException, Exception {
+		
 		ServerSocket serverSocket = new ServerSocket(7744);// 创建服务器，等待客户端连接
 		// 实现多个客户端连接服务器
 		while (true) {
@@ -27,7 +29,8 @@ public class Terminal {
 			int len = is.read(ipbuff);
 			String ipname = new String (ipbuff,0,len);
 			terminalIp.setIp(ipname);
-			
+			System.out.println(	terminalIp.getIp());
+		
 			int no = terminalDao.addIp(ipname);
 			if (no == 0) {
 				throw new RuntimeException("ip未更新");
@@ -39,10 +42,16 @@ public class Terminal {
 	}
 	
 	public void  addip(IpAdress ip){
-		ipList.add(ip);
+	
+		ipList.add(ip);	
+		
+		
 	}
 	
+	
+	
 	public ArrayList<IpAdress> getIpList() {
+		
 		return ipList;
 	}
 	
@@ -63,4 +72,9 @@ public class Terminal {
 		}
 	}
 
-}
+	
+	}
+
+	
+
+

@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import javax.swing.JToggleButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.asms.res.IpAdress;
 import com.asms.service.ManageUser;
+import com.asms.service.Terminal;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -88,9 +90,23 @@ public class MainFrame extends JFrame {
 		label.setBounds(22, 85, 105, 18);
 		getContentPane().add(label);
 		
+   //将ip传入到当前终端下拉框中
 		JComboBox ip_combobox = new JComboBox();
 		ip_combobox.setBounds(141, 82, 174, 24);
-		getContentPane().add(ip_combobox);
+		   Terminal tl=new Terminal();   
+	   ArrayList<IpAdress> Iplist = tl.getIpList();
+	   for (IpAdress ip : Iplist) {
+		   ip_combobox.addItem(ip);
+	}
+	  String IP =(String) ip_combobox.getSelectedItem();//当前下拉框中的ip
+	  
+	   
+	   
+	   
+	getContentPane().add(ip_combobox);
+	
+	   
+	
 		
 		JLabel label_1 = new JLabel("\u64AD\u653E\u6A21\u5F0F");
 		label_1.setBounds(277, 298, 72, 18);
@@ -204,4 +220,6 @@ public class MainFrame extends JFrame {
 		});
 		
 	}
+
+	
 }
