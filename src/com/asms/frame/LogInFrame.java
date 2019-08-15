@@ -58,16 +58,24 @@ public class LogInFrame extends JFrame{
 				ManageUser ls=new ManageUser();
 				  try {
 					int no= ls.login(name,password);
-					JOptionPane.showMessageDialog(null, "登陆成功");
+					 /**
+					   * 登陆后的设置界面
+					   */
+					  dengluAndchaxin d=new dengluAndchaxin();
+					   d.setVisible(true);
+					   
+				//	JOptionPane.showMessageDialog(null, "登陆成功");
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null,e1.getMessage());
+					text_name.setText("");
+					text_password.setText("");
 					e1.printStackTrace();
 				}
 				  
-				  /**
-				   * 登陆后的设置界面
-				   */
+				 
+				
+				  
 				  
 			}
 		});

@@ -52,12 +52,12 @@ public class ManagerDao {
 	}
 	
 /**
- * É¾
+ * ×¢ÏúÉ¾³ý
  * @throws SQLException 
  */
 	public int  delete(String name) throws SQLException{
 		DButils db= new DButils();
-		String sql="delete from advuser name=?";
+		String sql="delete from advuser where name=?";
 		int no=db.preUpdate(sql,name);
 		db.close();
 		return 0;
@@ -70,8 +70,8 @@ public class ManagerDao {
 	 */
 	public int  update(String name, String password) throws SQLException{
 		DButils db= new DButils();
-		String sql="update advuser set password=? where id=?";
-		int no=db.preUpdate(sql,name,password);
+		String sql="update advuser set password=? where name=?";
+		int no=db.preUpdate(sql,password,name);
 		db.close();
 		return 0;
 	}
