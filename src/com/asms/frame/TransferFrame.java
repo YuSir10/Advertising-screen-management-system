@@ -94,8 +94,6 @@ public class TransferFrame extends JFrame {
 
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-					
 					try {
 						transfer.IPAccept();
 						transfer.pushPictrue((String)comboBox_1.getSelectedItem());//获取资源
