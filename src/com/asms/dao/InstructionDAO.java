@@ -33,7 +33,7 @@ public class InstructionDAO {
 	
 	public ArrayList<Worked> queryAll() throws SQLException {
 		/**
-		 * 查询
+		 * 全查询
 		 */
 		DButils db = new DButils();
 		String sql = "select managername,instructname,advtime,ipadress from advinstruct order by advno";
@@ -69,17 +69,17 @@ public class InstructionDAO {
 	}
 
 	/**
-	 * 查询
+	 * 单查询
 	 * @param time
 	 * @param ip
 	 * @return
 	 * @throws SQLException 
 	 */
-	public ArrayList<Worked> Select(String advtime, String ipadress) throws SQLException {
+	public ArrayList<Worked> select(String advtime, String ipadress) throws SQLException {
 		// TODO Auto-generated method stub
 		DButils db=new DButils();
-		String sql="select * from advinstruct advtime=? and ipadress=? ";
-		ResultSet rs= db.preQuery(sql, advtime,ipadress);
+		String sql="select * from advinstruct where advtime=? and ipadress=? ";
+		ResultSet rs= db.preQuery(sql,advtime,ipadress);
 		ArrayList<Worked> list = new ArrayList<Worked>();
 		Worked worked = null;
 		while (rs.next()) {

@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,6 +36,8 @@ import com.asms.tool.DButils;
  */
 public class WorkFrame extends JFrame {
 
+	private JTextField textField_ip;
+	private JTextField textField_time;
 	private JTable table;
 	private JTextField empnoText;
 	private JTextField empnameText;
@@ -50,7 +53,7 @@ public class WorkFrame extends JFrame {
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 64, 682, 295);
+		scrollPane.setBounds(10, 51, 682, 308);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 
 		table = new JTable();
@@ -65,7 +68,7 @@ public class WorkFrame extends JFrame {
 		// scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table); // 显示表头
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 369, 682, 91);
+		panel.setBounds(10, 369, 682, 109);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -92,43 +95,46 @@ public class WorkFrame extends JFrame {
 		empnoText.setColumns(10);
 
 		empnameText = new JTextField();
+		empnameText.setEditable(false);
 		empnameText.setColumns(10);
-		empnameText.setBounds(334, 6, 98, 21);
+		empnameText.setBounds(334, 6, 128, 21);
 		panel.add(empnameText);
 
 		text_time = new JTextField();
+		text_time.setEditable(false);
 		text_time.setColumns(10);
 		text_time.setBounds(107, 37, 114, 21);
 		panel.add(text_time);
 
 		text_ip = new JTextField();
+		text_ip.setEditable(false);
 		text_ip.setColumns(10);
-		text_ip.setBounds(334, 37, 98, 21);
+		text_ip.setBounds(334, 37, 128, 21);
 		panel.add(text_ip);
 
 		JButton addButton = new JButton("\u641C\u7D22");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent arg0) {
 				clearTable();// 清零
-				String time = text_time.getText();
-				String ip = text_ip.getText();
-
+				String advtime = textField_time.getText();// 获取文本框的值
+				String ipadress = textField_ip.getText();
+				ArrayList<Worked> List;
 				try {
-					ArrayList<Worked> workedList = workService.select(time, ip);
-					for (Worked worked : workedList) {
+					List = workService.select(advtime, ipadress);
+					for (Worked worked : List) {
 						tm.addRow(new Object[] { worked.getManagername(), worked.getInstructname(), worked.getAdvtime(),
 								worked.getIpadress() });
 
 					}
+
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());
-					// TODO Auto-generated catch block
-					// e.printStackTrace();
+
+					e.printStackTrace();
 				}
-	
+
 			}
 		});
-		addButton.setBounds(543, 6, 93, 23);
+		addButton.setBounds(543, 79, 93, 23);
 		panel.add(addButton);
 
 		JButton delButton = new JButton("\u5220\u9664");
@@ -202,6 +208,48 @@ public class WorkFrame extends JFrame {
 				}
 			}
 		});
+
+		final JLabel label_3 = new JLabel();
+		label_3.setText("输入查询时间");
+		label_3.setBounds(10, 81, 92, 18);
+		panel.add(label_3);
+
+		textField_time = new JTextField();
+		textField_time.setBounds(108, 79, 114, 22);
+		panel.add(textField_time);
+
+		final JLabel label_4 = new JLabel();
+		label_4.setText("输入查询的ip");
+		label_4.setBounds(249, 81, 79, 18);
+		panel.add(label_4);
+
+		textField_ip = new JTextField();
+		textField_ip.setBounds(334, 79, 128, 22);
+		panel.add(textField_ip);
+
+		final JToggleButton toggleButton = new JToggleButton();
+		toggleButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent e) {
+				clearTable();// 清零
+				// 查看
+				WorkService workService = new WorkService();
+				ArrayList<Worked> list;
+				try {
+					list = workService.queryAll();
+					for (Worked worked : list) {
+						tm.addRow(new Object[] { worked.getManagername(), worked.getInstructname(), worked.getAdvtime(),
+								worked.getIpadress() });
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		toggleButton.setText("查看");
+		toggleButton.setBounds(544, 10, 92, 21);
+		panel.add(toggleButton);
 		table.addMouseListener(new MouseAdapter() {
 			/**
 			 * 鼠标点击表格获取指定行的监听事件

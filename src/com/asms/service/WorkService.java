@@ -46,10 +46,10 @@ public class WorkService {
 		return no;
 	}
 
-
-	public ArrayList<Worked> select(String advtime, String ipadress) throws Exception {
+   //≤È—Ø
+		public ArrayList<Worked> select(String advtime, String ipadress) throws Exception {
 		// TODO Auto-generated method stub
-		ArrayList<Worked> list = instructionDAO.Select(advtime,ipadress);
+		ArrayList<Worked> list = instructionDAO.select(advtime,ipadress);
 		return list;
 		
 		
