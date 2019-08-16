@@ -43,6 +43,7 @@ public class InstructionSend {
 	}
 
 	public String sendPictureInstruction(String ipString) throws UnknownHostException, IOException {
+		this.ipAdress = ipString;
 		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(SENDPICTURE.getBytes());
@@ -59,6 +60,7 @@ public class InstructionSend {
 	}
 
 	public String sendVideoInstruction(String ipString) throws UnknownHostException, IOException {
+		this.ipAdress = ipString;
 		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(SENDVIDEO.getBytes());
@@ -91,6 +93,7 @@ public class InstructionSend {
 	}
 
 	public String screenStop(String ipString) throws UnknownHostException, IOException {
+		this.ipAdress = ipString;
 		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(SCREENSTOP.getBytes());
@@ -107,6 +110,7 @@ public class InstructionSend {
 	}
 
 	public String startPlay(String ipString) throws UnknownHostException, IOException {
+		this.ipAdress = ipString;
 		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(STARTPLAY.getBytes());
@@ -123,6 +127,7 @@ public class InstructionSend {
 	}
 
 	public String stopPlay(String ipString) throws UnknownHostException, IOException {
+		this.ipAdress = ipString;
 		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		os.write(STOPPLAY.getBytes());
@@ -140,6 +145,7 @@ public class InstructionSend {
 	}
 
 	public String playModel(String ipString,int index) throws UnknownHostException, IOException {
+		this.ipAdress = ipString;
 		Socket socket = new Socket(ipString, INStRUCTINON_PORT);
 		OutputStream os = socket.getOutputStream();
 		if (index == 1) {
