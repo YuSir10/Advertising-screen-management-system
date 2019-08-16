@@ -5,6 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import org.omg.PortableInterceptor.INACTIVE;
 
 import com.asms.dao.InstructionDAO;
 
@@ -34,22 +38,27 @@ public class WorkService {
 	 * @param selectRow 
 	 * @throws SQLException 
 	  */
-	public void delete(String time, String ip) throws SQLException {
-		int no = instructionDAO.delete(time, ip);
-		if (no == 0 ) {
-			throw new RuntimeException("记录没有删除成功");
-		}
+	public int delete(String advtime, String ipadress) throws SQLException {
+		int no = instructionDAO.delete(advtime, ipadress);
+//		if (no == 0 ) {
+//			throw new RuntimeException("记录没有删除成功");
+//		}
+		return no;
 	}
 
 
-	public ArrayList<Worked> select(String time, String ip) throws Exception {
+	public ArrayList<Worked> select(String advtime, String ipadress) throws Exception {
 		// TODO Auto-generated method stub
-		ArrayList<Worked> list = instructionDAO.Select(time,ip);
+		ArrayList<Worked> list = instructionDAO.Select(advtime,ipadress);
 		return list;
 		
 		
 	}
+
+
+
 	
 
 }
+
 

@@ -44,9 +44,9 @@ public class InstructionDAO {
 		while (rs.next()) {
 			worked = new Worked();
 			worked.setManagername(rs.getString("managername"));
-			worked.setInstructname(rs.getString("ipadress"));
-			worked.setAdvtime(rs.getString("instructname"));
-			worked.setIpadress(rs.getString("advtime"));
+			worked.setInstructname(rs.getString("instructname"));
+			worked.setAdvtime(rs.getString("advtime"));
+			worked.setIpadress(rs.getString("ipadress"));
 			list.add(worked);
 		}
 		db.close();
@@ -60,34 +60,34 @@ public class InstructionDAO {
 	 * @param selectRow
 	 */
 
-	public int delete(String time, String ip) throws SQLException {
+	public int delete(String advtime, String ipadress) throws SQLException {
 		DButils db = new DButils();
 		String sql = "delete from advinstruct where advtime=? and ipadress=?";
-		int no = db.preUpdate(sql, time, ip);
+		int no = db.preUpdate(sql, advtime, ipadress);
 		db.close();
 		return no;
 	}
 
 	/**
-	 * chaxun
+	 * ≤È—Ø
 	 * @param time
 	 * @param ip
 	 * @return
 	 * @throws SQLException 
 	 */
-	public ArrayList<Worked> Select(String time, String ip) throws SQLException {
+	public ArrayList<Worked> Select(String advtime, String ipadress) throws SQLException {
 		// TODO Auto-generated method stub
 		DButils db=new DButils();
-		String sql="select * from advinstruct ipadress=? and advtime=? ";
-		ResultSet rs= db.preQuery(sql, ip,time);
+		String sql="select * from advinstruct advtime=? and ipadress=? ";
+		ResultSet rs= db.preQuery(sql, advtime,ipadress);
 		ArrayList<Worked> list = new ArrayList<Worked>();
 		Worked worked = null;
 		while (rs.next()) {
 			worked = new Worked();
 			worked.setManagername(rs.getString("managername"));
-			worked.setInstructname(rs.getString("ipadress"));
-			worked.setAdvtime(rs.getString("instructname"));
-			worked.setIpadress(rs.getString("advtime"));
+			worked.setInstructname(rs.getString("instructname"));
+			worked.setAdvtime(rs.getString("advtime"));
+			worked.setIpadress(rs.getString("ipadress"));
 			list.add(worked);
 		}
 		db.close();

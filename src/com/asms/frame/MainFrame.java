@@ -102,6 +102,7 @@ public class MainFrame extends JFrame {
 
 		// 将ip传入到当前终端下拉框中
 		final JComboBox ip_combobox = new JComboBox();
+		ip_combobox.setEditable(true);
 		ip_combobox.setBounds(141, 82, 174, 24);
 
 		new Thread(new Runnable() {
@@ -301,6 +302,7 @@ public class MainFrame extends JFrame {
 				String ipString = ip_combobox.getSelectedItem().toString();
 				try {
 					String resultString = instructionSend.startPlay(ipString);
+					System.out.println(resultString);
 					if (resultString.equals("OK")) {
 						instructionSend.addInstruction(instructionSend.getStartplay());
 					}
