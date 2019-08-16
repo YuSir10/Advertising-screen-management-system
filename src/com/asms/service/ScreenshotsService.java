@@ -14,21 +14,22 @@ public class ScreenshotsService {
 	public static void getPictrue(String string) throws IOException {
 		// TODO Auto-generated method stub
 		Socket socket = null;
-		ServerSocket ss = new ServerSocket(7777);
+		ServerSocket server1 = new ServerSocket(7777);
+//		ServerSocket server2=new ServerSocket(7778);
 		while (true) {
-			socket = ss.accept();
+			socket = server1.accept();
 			System.out.println("спа╢╫с");
 			ScreenThread screenThread = new ScreenThread(socket);
 			Thread thread = new Thread(screenThread);
 			thread.start();
 		}
-
+		
 	}
 
 	public void stop() {
 		// TODO Auto-generated method stub
 		//
-		File picFile = new File("d:\\jietu\\jitu.jpg");
+		File picFile = new File("d:\\jietu.jpg");
 		picFile.delete();
 	}
 

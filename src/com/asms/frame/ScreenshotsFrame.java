@@ -40,8 +40,9 @@ public class ScreenshotsFrame extends JFrame{
 	ScreenshotsService screenshotsService =new ScreenshotsService();
 	private static boolean  flag = true;
 	
-	public ScreenshotsFrame()  {
+	public ScreenshotsFrame(ArrayList<IpAdress> iplist, String nameString)  {
 		this.iplist = iplist;
+		
 		setLocationRelativeTo(null);
 		setSize(666,482);
 		getContentPane().setLayout(null);
@@ -86,23 +87,16 @@ public class ScreenshotsFrame extends JFrame{
 
 		start_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-//					String ip=(String)ip_comboBox.getSelectedItem();
-//					ScreenshotsService 
-				ScreenshotsService.getPictrue(ip_comboBox.getSelectedItem().toString());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						File pictrue = new File("d:\\jitu.jpg");
+						File pictrue = new File("d:\\jietu.jpg");
 						while(flag) {
 							if (pictrue.exists()) {
 								JPanel p = new JPanel() {
 						            public void paintComponent(Graphics g) {
-						            	String url = "d:\\jitu.jpg";
+						            	String url = "d:\\jietu.jpg";
 						                super.paintComponent(g);
 						                ImageIcon ii = new ImageIcon(url);
 						                g.drawImage(ii.getImage(), 0,0, getSize().width, getSize().height, this);
@@ -117,16 +111,15 @@ public class ScreenshotsFrame extends JFrame{
 						
 					}
 				}).start();
-				
-				
+				try {
 
-//				try {
-//					screenshotsService.getPictrue((String) ip_comboBox.getSelectedItem());
-//				} catch (IOException e) {
-//					JOptionPane.showMessageDialog(null, e.getMessage());
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+				ScreenshotsService.getPictrue("");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 			}
 		});
 	}

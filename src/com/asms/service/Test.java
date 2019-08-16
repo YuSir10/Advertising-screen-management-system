@@ -15,7 +15,7 @@ import com.asms.res.IpAdress;
  * @author гугугу
  *
  */
-public class test {
+public class Test {
 	     
 			
 			 
