@@ -17,14 +17,12 @@ public class ScreenshotsService {
 		ServerSocket ss = new ServerSocket(7777);
 		while (true) {
 			socket = ss.accept();
-<<<<<<< HEAD
-			ThreadHandler  screenThread = new ThreadHandler(socket);
-=======
+
 			System.out.println("спа╢╫с");
 			ScreenThread screenThread = new ScreenThread(socket);
 			Thread thread = new Thread(screenThread);
 			thread.start();
->>>>>>> 0c89713d37649fe582a7b3b9fd1bc65e66402f2e
+
 		}
 
 	}
