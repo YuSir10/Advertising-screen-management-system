@@ -15,6 +15,8 @@ import com.asms.dao.ManagerDao;
 import com.asms.service.ManageUser;
 
 public class UserUpdate extends JFrame{
+	private JPasswordField text_password1;
+	private JPasswordField text_password0;
 	private JPasswordField text_password;
 	private JTextField text_name;
 	public UserUpdate() {
@@ -28,20 +30,21 @@ public class UserUpdate extends JFrame{
 			public void actionPerformed(final ActionEvent e) {
 				String name=text_name.getText();
 				String password=text_password.getText();
+				String password0=text_password0.getText();
+				String password1=text_password1.getText();
 				ManageUser m=new ManageUser();
 				try {
-					m.update(name, password);
+					m.update(name, password,password0,password1);
 					JOptionPane.showMessageDialog(null, "修改成功");
+					dispose();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null,e1.getMessage());
-					e1.printStackTrace();
 				}
-				dispose();
+			
 			}
 		});
 		button.setText("确认修改");
-		button.setBounds(132, 211, 106, 28);
+		button.setBounds(127, 247, 106, 28);
 		getContentPane().add(button);
 
 
@@ -51,8 +54,8 @@ public class UserUpdate extends JFrame{
 		getContentPane().add(label);
 
 		final JLabel label_1 = new JLabel();
-		label_1.setText("新密码");
-		label_1.setBounds(67, 139, 66, 18);
+		label_1.setText("旧密码");
+		label_1.setBounds(67, 106, 66, 18);
 		getContentPane().add(label_1);
 
 		text_name = new JTextField();
@@ -60,8 +63,26 @@ public class UserUpdate extends JFrame{
 		getContentPane().add(text_name);
 
 		text_password = new JPasswordField();
-		text_password.setBounds(172, 137, 132, 22);
+		text_password.setBounds(175, 106, 132, 22);
 		getContentPane().add(text_password);
+
+		final JLabel label_2 = new JLabel();
+		label_2.setText("新密码");
+		label_2.setBounds(67, 159, 66, 18);
+		getContentPane().add(label_2);
+
+		final JLabel label_3 = new JLabel();
+		label_3.setText("确认新密码");
+		label_3.setBounds(67, 206, 66, 18);
+		getContentPane().add(label_3);
+
+		text_password0 = new JPasswordField();
+		text_password0.setBounds(175, 157, 129, 22);
+		getContentPane().add(text_password0);
+
+		text_password1 = new JPasswordField();
+		text_password1.setBounds(175, 204, 129, 22);
+		getContentPane().add(text_password1);
 	}
 
 }

@@ -68,12 +68,27 @@ public class ManagerDao {
 	 * 修改
 	 * @throws SQLException 
 	 */
-	public int  update(String name, String password) throws SQLException{
+	public  void update(String name, String password1) throws SQLException{
 		DButils db= new DButils();
 		String sql="update advuser set password=? where managername=?";
-		int no=db.preUpdate(sql,password,name);
+		db.preUpdate(sql,password1,name);
 		db.close();
-		return no;
+	}
+    /**
+     * 查询密码是否正确
+     * @throws SQLException 
+     */
+	public String selectPass(String name) throws SQLException{
+		DButils db= new DButils();
+		String sql="select password from advuser where managername=?";
+		ResultSet rs= db.preQuery(sql,name);
+		String pass="";
+		while(rs.next()){
+			 pass=rs.getString("password");
+		}
+		db.close();
+		return pass;
+		
 	}
 	
 	

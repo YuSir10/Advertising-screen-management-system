@@ -126,7 +126,7 @@ public class MainFrame extends JFrame {
 		for (IpAdress ip : Iplist) {
 			ip_combobox.addItem(ip);
 		}
-		String IP = (String) ip_combobox.getSelectedItem();// 当前下拉框中的ip
+		final String IP = (String) ip_combobox.getSelectedItem();// 当前下拉框中的ip
 
 		getContentPane().add(ip_combobox);
 
@@ -253,7 +253,7 @@ public class MainFrame extends JFrame {
 
 		screen_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame();
+				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame(Iplist, IP);
 				screenshotsFrame.setVisible(true);
 			}
 		});

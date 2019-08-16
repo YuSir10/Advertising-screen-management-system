@@ -73,23 +73,43 @@ public class ManageUser {
 	
 	/**
 	 * 修改 密码
+	 * @param password1 
+	 * @param password0 
+	 * @param password1 
+	 * @param password12 
+	 * @param password0 
 	 * @throws SQLException 
 	 */
-	public int  update(String name,String password) throws SQLException{
+	public void  update(String name,String password, String password0, String password1) throws SQLException{
 		if ("".equals(name)) {
 			throw new RuntimeException("用户名不能为空");
 		}
 		if ("".equals(password)) {
-			throw new RuntimeException("密码不能为空");
+			throw new RuntimeException("旧密码不能为空");
+		}
+		if ("".equals(password0)) {
+			throw new RuntimeException("修改密码不能为空");
+		}
+		if ("".equals(password1)) {
+			throw new RuntimeException("确认密码不能为空");
 		}
 		User reg = managerDao.select(name);//数据库用户名校验
 		if (reg==null){
 			throw new RuntimeException("该用户尚未注册");
 		}else{
-			int no=managerDao.update(name,password);
+			String pass=managerDao.selectPass(name);
+			if (password.equals(pass)) {
+				if (password0.equals(password1)) {
+					managerDao.update(name,password1);
+				}else{
+					throw new RuntimeException("您输入的两次密码不一致");	
+				}
+			}else{
+				throw new RuntimeException("您的旧密码有误");
+			}
+			
 		}
 		
-		return 0;
 	}
 	
 	
