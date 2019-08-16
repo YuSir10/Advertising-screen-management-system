@@ -65,7 +65,6 @@ public class WorkFrame extends JFrame {
 		tm.addColumn("执行的终端ip");
 
 		table.setModel(tm);
-		// scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table); // 显示表头
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 369, 682, 109);
@@ -173,9 +172,7 @@ public class WorkFrame extends JFrame {
 		 */
 		delButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				WorkService workService = new WorkService();
-				int no = table.getSelectedRowCount();
-
+				int no = table.getSelectedRowCount();//获取表中的全部行数
 				if (no < 1) {
 					// 一次只能删一行
 					JOptionPane.showMessageDialog(null, "一次只能删一行");
@@ -184,13 +181,12 @@ public class WorkFrame extends JFrame {
 					JOptionPane.showMessageDialog(null, "请选择要删除的行");
 				} else {
 					// 删
-					int rowNo = table.getSelectedRow();
+					int rowNo = table.getSelectedRow();//获取当前选中的行
 					int comfirmNo = JOptionPane.showConfirmDialog(null, "确定要删除第" + (rowNo + 1) + "条吗?");
-					tm.removeRow(rowNo);
+					tm.removeRow(rowNo);//根据索引删除行
 					if (comfirmNo == 0) {
 						// 真删
-						// 获取行的索引
-
+						// 获取行中某行某列的信息
 						String advtime = (String) table.getValueAt(comfirmNo, 2);
 						String ipadress = (String) table.getValueAt(comfirmNo, 3);
 						try {
