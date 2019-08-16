@@ -246,7 +246,7 @@ public class MainFrame extends JFrame {
 
 		update_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				UserUpdate userUpdate = new UserUpdate();
+				UserUpdate userUpdate = new UserUpdate(nameString);
 				userUpdate.setVisible(true);
 			}
 		});
