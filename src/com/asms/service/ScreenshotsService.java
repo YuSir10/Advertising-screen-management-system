@@ -17,7 +17,7 @@ public class ScreenshotsService {
 		ServerSocket ss = new ServerSocket(7777);
 		while (true) {
 			socket = ss.accept();
-			ScreenThread screenThread = new ScreenThread(socket);
+			ThreadHandler  screenThread = new ThreadHandler(socket);
 		}
 
 	}
