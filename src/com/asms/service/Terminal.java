@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
+
 import com.asms.dao.TerminalDao;
 import com.asms.res.IpAdress;
 import com.asms.res.TerminalThread;
@@ -17,7 +19,7 @@ public class Terminal {
 	 
 	private TerminalDao terminalDao = new TerminalDao();
 	
-	public ArrayList<IpAdress> getIp() throws IOException, Exception {
+	public void getIp(JComboBox comboBox) throws IOException, Exception {
 		
 		ServerSocket serverSocket = new ServerSocket(7744);// 创建服务器，等待客户端连接
 		// 实现多个客户端连接服务器
@@ -29,6 +31,7 @@ public class Terminal {
 			int len = is.read(ipbuff);
 			String ipname = new String (ipbuff,0,len);
 			terminalIp.setIp(ipname);
+			comboBox.addItem(ipname);
 			System.out.println(	terminalIp.getIp());
 		
 			int no = terminalDao.addIp(ipname);
@@ -36,7 +39,7 @@ public class Terminal {
 				throw new RuntimeException("ip未更新");
 			}
 			addip(terminalIp);
-			return ipList;
+			
 		}
 		
 	}

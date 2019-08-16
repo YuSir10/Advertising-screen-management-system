@@ -20,7 +20,7 @@ public class Transfer {
 		//发送图片
 		
 		//FileOutputStream fos = null;
-		Socket socket = new Socket("192.168.0.108",7766);
+		Socket socket = new Socket("192.168.1.64",7766);
 		FileInputStream fis =new FileInputStream(pictrueFilePath);//读取本地文件
 		OutputStream os = socket.getOutputStream();
 		byte[] buff = new byte[1024];
@@ -48,8 +48,8 @@ public class Transfer {
 		//发送图片
 		
 		//FileOutputStream fos = null;
-		Socket socket = new Socket("192.168.0.108",7766);
-		FileInputStream fis =new FileInputStream("d:\\1.gif");//读取本地文件
+		Socket socket = new Socket("192.168.1.64",7766);
+		FileInputStream fis =new FileInputStream(videoFilePath);//读取本地文件
 		OutputStream os = socket.getOutputStream();
 		byte[] buff = new byte[1024];
 		int len = 0;

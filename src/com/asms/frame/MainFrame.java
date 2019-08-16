@@ -110,7 +110,7 @@ public class MainFrame extends JFrame {
 			public void run() {
 				// TODO Auto-generated method stub
 				try {
-					Iplist = terminal.getIp();
+					terminal.getIp(ip_combobox);
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					// TODO Auto-generated catch block
@@ -253,7 +253,7 @@ public class MainFrame extends JFrame {
 
 		screen_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame(Iplist, nameString);
+				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame();
 				screenshotsFrame.setVisible(true);
 			}
 		});

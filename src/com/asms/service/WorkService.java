@@ -38,18 +38,18 @@ public class WorkService {
 	 * @param selectRow 
 	 * @throws SQLException 
 	  */
-	public int delete(String advtime, String ipadress) throws SQLException {
+	public void  delete(String advtime, String ipadress) throws SQLException {
 		int no = instructionDAO.delete(advtime, ipadress);
-//		if (no == 0 ) {
-//			throw new RuntimeException("记录没有删除成功");
-//		}
-		return no;
+		if (no == 0 ) {
+			throw new RuntimeException("记录没有删除成功");
+		}
+		
 	}
 
-
-	public ArrayList<Worked> select(String advtime, String ipadress) throws Exception {
+   //查询
+		public ArrayList<Worked> select(String advtime, String ipadress) throws Exception {
 		// TODO Auto-generated method stub
-		ArrayList<Worked> list = instructionDAO.Select(advtime,ipadress);
+		ArrayList<Worked> list = instructionDAO.select(advtime,ipadress);
 		return list;
 		
 		
