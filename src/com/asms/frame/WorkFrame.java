@@ -173,7 +173,7 @@ public class WorkFrame extends JFrame {
 		delButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int no = table.getSelectedRowCount();//获取表中的全部行数
-				if (no < 1) {
+				if (no > 1) {
 					// 一次只能删一行
 					JOptionPane.showMessageDialog(null, "一次只能删一行");
 				} else if (no == 0) {
@@ -183,14 +183,15 @@ public class WorkFrame extends JFrame {
 					// 删
 					int rowNo = table.getSelectedRow();//获取当前选中的行
 					int comfirmNo = JOptionPane.showConfirmDialog(null, "确定要删除第" + (rowNo + 1) + "条吗?");
-					tm.removeRow(rowNo);//根据索引删除行
 					if (comfirmNo == 0) {
 						// 真删
 						// 获取行中某行某列的信息
-						String advtime = (String) table.getValueAt(comfirmNo, 2);
-						String ipadress = (String) table.getValueAt(comfirmNo, 3);
+						String advtime = (String) table.getValueAt(rowNo, 2);
+						String ipadress = (String) table.getValueAt(rowNo, 3);
+						System.out.println(advtime+"  "+ipadress);
 						try {
 							workService.delete(advtime, ipadress);
+							
 							JOptionPane.showMessageDialog(null, "信息成功删除");
 							clearTable();
 							showTable();

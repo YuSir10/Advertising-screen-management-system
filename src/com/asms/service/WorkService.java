@@ -38,12 +38,12 @@ public class WorkService {
 	 * @param selectRow 
 	 * @throws SQLException 
 	  */
-	public int delete(String advtime, String ipadress) throws SQLException {
+	public void  delete(String advtime, String ipadress) throws SQLException {
 		int no = instructionDAO.delete(advtime, ipadress);
-//		if (no == 0 ) {
-//			throw new RuntimeException("记录没有删除成功");
-//		}
-		return no;
+		if (no == 0 ) {
+			throw new RuntimeException("记录没有删除成功");
+		}
+		
 	}
 
    //查询
