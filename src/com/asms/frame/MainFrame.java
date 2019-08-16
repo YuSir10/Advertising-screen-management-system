@@ -253,7 +253,7 @@ public class MainFrame extends JFrame {
 
 		screen_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame();
+				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame(Iplist,nameString);
 				screenshotsFrame.setVisible(true);
 			}
 		});

@@ -8,18 +8,18 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 public class ScreenshotsService {
 	
 
-	public static void getPictrue(String string) throws IOException {
+	public  void getPictrue() throws IOException {
 		// TODO Auto-generated method stub
 		Socket socket = null;
-		ServerSocket server1 = new ServerSocket(7777);
+		ServerSocket server = new ServerSocket(7777);
 //		ServerSocket server2=new ServerSocket(7778);
 		while (true) {
-
-			socket = server1.accept();
-
+			socket = server.accept();
 			System.out.println("спа╢╫с");
 			ScreenThread screenThread = new ScreenThread(socket);
 			Thread thread = new Thread(screenThread);
