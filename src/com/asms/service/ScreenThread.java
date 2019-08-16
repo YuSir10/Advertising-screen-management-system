@@ -3,6 +3,7 @@
  */
 package com.asms.service;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 /**
- * @author гугугу
+ * @author ЇдЇхЇдЇхЇдЇх
  *
  */
 public class ScreenThread implements Runnable {
@@ -28,11 +29,13 @@ public class ScreenThread implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
-			FileOutputStream fos = new FileOutputStream("F:\\jietu\\jietu.jgp");
+			
+			FileOutputStream fos = new FileOutputStream("d:\\jietu.jpg");
 			InputStream is = socket.getInputStream();
 			byte[] buff = new byte[1024];
 			int len = 0;
 			while ((len = is.read(buff)) != -1) {
+				System.out.println(new String(buff,0,len));
 				fos.write(buff,0,len);
 				fos.flush();
 			}
@@ -48,3 +51,4 @@ public class ScreenThread implements Runnable {
 	}
 
 }
+
