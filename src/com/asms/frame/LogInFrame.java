@@ -12,7 +12,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import com.asms.service.ManageUser;
+import com.asms.service.ManageService;
+import java.awt.Font;
 
 /**
  *  µÇÂ½½çÃæ
@@ -31,20 +32,20 @@ public class LogInFrame extends JFrame{
 
 		final JLabel label = new JLabel();
 		label.setText("ÓÃ»§Ãû");
-		label.setBounds(84, 83, 66, 18);
+		label.setBounds(112, 148, 66, 18);
 		getContentPane().add(label);
 
 		final JLabel label_1 = new JLabel();
 		label_1.setText("ÃÜÂë");
-		label_1.setBounds(84, 153, 66, 18);
+		label_1.setBounds(112, 194, 66, 18);
 		getContentPane().add(label_1);
 
 		text_name = new JTextField();
-		text_name.setBounds(170, 81, 169, 22);
+		text_name.setBounds(203, 147, 169, 22);
 		getContentPane().add(text_name);
 
 		text_password = new JPasswordField();
-		text_password.setBounds(170, 151, 169, 22);
+		text_password.setBounds(203, 193, 169, 22);
 		getContentPane().add(text_password);
 
 		final JButton button = new JButton();
@@ -55,7 +56,7 @@ public class LogInFrame extends JFrame{
 			 */
 				String name=text_name.getText();
 				String password=text_password.getText();
-				ManageUser ls=new ManageUser();
+				ManageService ls=new ManageService();
 				  try {
 					int no= ls.login(name,password);
 					JOptionPane.showMessageDialog(null, "µÇÂ½³É¹¦");
@@ -77,7 +78,7 @@ public class LogInFrame extends JFrame{
 			}
 		});
 		button.setText("µÇÂ½");
-		button.setBounds(72, 252, 106, 28);
+		button.setBounds(104, 252, 106, 28);
 		getContentPane().add(button);
 
 		final JButton button_1 = new JButton();
@@ -92,12 +93,14 @@ public class LogInFrame extends JFrame{
 			}
 		});
 		button_1.setText("×¢²á");
-		button_1.setBounds(250, 252, 106, 28);
+		button_1.setBounds(266, 252, 106, 28);
 		getContentPane().add(button_1);
+		
+		JLabel label_2 = new JLabel("\u6B22\u8FCE\u4F7F\u7528\"\u4E94\u9669\u4E00\u91D1\"\u96C6\u56E2\u7684\u5E7F\u544A\u5C4F\u7BA1\u7406\u7CFB\u7EDF");
+		label_2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 18));
+		label_2.setBounds(80, 62, 341, 61);
+		getContentPane().add(label_2);
 		
 		setLocationRelativeTo(null);
 	}
-	
-
-
 }

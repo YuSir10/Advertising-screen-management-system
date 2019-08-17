@@ -60,13 +60,13 @@ public class PictrueLable extends JPanel {
 	        int x = 0;  
 	        int y = 0;  
 	        Graphics g = (Graphics) g1;  
-	        if ( == image) {  
+	        if ( null == image) {  
 	            return;  
 	        }  
 	  
 	        g.drawImage(image, x, y, image.getWidth(this), image.getHeight(this),  
 	                this);  
-	        g = ;  
+	        g =null  ;  
 	    }  
     
 

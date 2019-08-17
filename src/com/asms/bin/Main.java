@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 import com.asms.frame.LogInFrame;
 import com.asms.frame.MainFrame;
 import com.asms.frame.WorkFrame;
-import com.asms.service.InstructionSend;
+import com.asms.service.InstructionService;
 
 /**
  * @author гугугу

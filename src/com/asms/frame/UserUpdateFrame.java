@@ -12,14 +12,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.asms.dao.ManagerDao;
-import com.asms.service.ManageUser;
+import com.asms.service.ManageService;
 
-public class UserUpdate extends JFrame{
+public class UserUpdateFrame extends JFrame{
 	private String nameString;
 	private JPasswordField text_password1;
 	private JPasswordField text_password0;
 	private JPasswordField text_password;
-	public UserUpdate(String name) {
+	public UserUpdateFrame(String name) {
 		super();
 		this.nameString = name;
 		setSize(462,348);
@@ -33,7 +33,7 @@ public class UserUpdate extends JFrame{
 				String password=text_password.getText();
 				String password0=text_password0.getText();
 				String password1=text_password1.getText();
-				ManageUser m=new ManageUser();
+				ManageService m=new ManageService();
 				try {
 					m.update(nameString, password,password0,password1);
 					JOptionPane.showMessageDialog(null, "ÐÞ¸Ä³É¹¦");

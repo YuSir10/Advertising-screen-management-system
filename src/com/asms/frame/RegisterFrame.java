@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import com.asms.service.ManageUser;
+import com.asms.service.ManageService;
 
 /**
  *注册界面
@@ -26,6 +26,7 @@ public class RegisterFrame extends JFrame{
 	private JTextField text_name;
 	public RegisterFrame() {
 		super();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(440,361);
 		setTitle("注册窗口");
@@ -54,7 +55,7 @@ public class RegisterFrame extends JFrame{
 			public void actionPerformed(final ActionEvent e) {
 				String name=text_name.getText();
 				String password=text_password.getText();
-				ManageUser ls=new ManageUser(); 
+				ManageService ls=new ManageService(); 
 				try {
 					int no=ls.registered(name, password);
 					JOptionPane.showMessageDialog(null, "注册成功");

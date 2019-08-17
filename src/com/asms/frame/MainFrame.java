@@ -19,11 +19,11 @@ import javax.swing.JToggleButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.asms.res.IpAdress;
-import com.asms.service.InstructionSend;
-import com.asms.service.ManageUser;
+import com.asms.service.InstructionService;
+import com.asms.service.ManageService;
 import com.asms.service.ScreenshotsService;
-import com.asms.service.Terminal;
-import com.asms.service.Transfer;
+import com.asms.service.TerminalService;
+import com.asms.service.TransferService;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,15 +37,17 @@ public class MainFrame extends JFrame {
 	private ArrayList<String> pictureArrayList = new ArrayList<String>();
 	private ArrayList<IpAdress> Iplist = new ArrayList<IpAdress>();
 
-	private ManageUser manageUser = new ManageUser();
+	private ManageService manageUser = new ManageService();
 	private String nameString;
 	private String passwordString;
-	private Terminal terminal = new Terminal(); // 获取ip
-	private Transfer transfer = new Transfer(); // 做传输的业务
-	private InstructionSend instructionSend = new InstructionSend(nameString); // 发送指令的业务
+	private TerminalService terminal = new TerminalService(); // 获取ip
+	private TransferService transfer = new TransferService(); // 做传输的业务
+	private InstructionService instructionSend = new InstructionService(nameString); // 发送指令的业务
 	private ScreenshotsService screenshotsService = new ScreenshotsService(); // 获取截图的业务
 
 	public MainFrame(String name, String password) {
+		setTitle("\u4E3B\u754C\u9762");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.nameString = name;
 		this.passwordString = password;
 		setSize(new Dimension(823, 534));
@@ -93,17 +95,17 @@ public class MainFrame extends JFrame {
 		getContentPane().add(dele_button);
 
 		JButton update_button = new JButton("\u4FEE\u6539\u5BC6\u7801");
-		update_button.setBounds(141, 13, 113, 27);
+		update_button.setBounds(137, 13, 93, 27);
 		getContentPane().add(update_button);
 
 		JLabel label = new JLabel("\u76EE\u524D\u5728\u7EBF\u7684\u7EC8\u7AEF");
-		label.setBounds(22, 85, 105, 18);
+		label.setBounds(14, 102, 105, 18);
 		getContentPane().add(label);
 
 		// 将ip传入到当前终端下拉框中
 		final JComboBox ip_combobox = new JComboBox();
 		ip_combobox.setEditable(true);
-		ip_combobox.setBounds(141, 82, 174, 24);
+		ip_combobox.setBounds(137, 100, 174, 24);
 
 		new Thread(new Runnable() {
 			@Override
@@ -111,10 +113,6 @@ public class MainFrame extends JFrame {
 				// TODO Auto-generated method stub
 				try {
 					terminal.getIp(ip_combobox);
-				} catch (IOException e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());
-					// TODO Auto-generated catch block
-					// e.printStackTrace();
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 					// TODO Auto-generated catch block
@@ -123,9 +121,6 @@ public class MainFrame extends JFrame {
 			}
 		}).start();
 
-		for (IpAdress ip : Iplist) {
-			ip_combobox.addItem(ip);
-		}
 		final String IP = (String) ip_combobox.getSelectedItem();// 当前下拉框中的ip
 
 		getContentPane().add(ip_combobox);
@@ -151,23 +146,37 @@ public class MainFrame extends JFrame {
 		model_comboBox.addItem("随机播放");
 
 		JButton play_button = new JButton("\u64AD\u653E");
-		play_button.setBounds(356, 81, 113, 27);
+		play_button.setBounds(335, 98, 113, 27);
 		getContentPane().add(play_button);
 
 		JButton stop_button = new JButton("\u6682\u505C");
-		stop_button.setBounds(500, 81, 113, 27);
+		stop_button.setBounds(458, 98, 113, 27);
 		getContentPane().add(stop_button);
+		
+		JButton exit_button = new JButton("\u9000\u51FA");
+		exit_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LogInFrame logInFrame = new LogInFrame();
+				logInFrame.setVisible(true);
+				
+				
+				dispose();
+				
+			}
+		});
+		exit_button.setBounds(14, 50, 93, 23);
+		getContentPane().add(exit_button);
 
 		import_pic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser("D:\\");
+				JFileChooser fileChooser = new JFileChooser("D:\\Tomcat\\apache-tomcat-9.0.16\\webapps\\ROOT\\");
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("图像文件（JPG/GIF）", "JPG", "JPEG", "GIF");// 设置文件过滤器，只列出JPG或GIF格式的图片
 				fileChooser.setFileFilter(filter);
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int returnVal = fileChooser.showOpenDialog(fileChooser);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					String filePath = fileChooser.getSelectedFile().getAbsolutePath();// 这个就是你选择的文件夹的路径
-					videoArrayList.add(filePath);
+					String filePath = fileChooser.getSelectedFile().getName();// 这个就是你选择的文件夹的路径
+					pictureArrayList.add(filePath);
 					pictrue_combobox.addItem(filePath);
 
 				}
@@ -176,15 +185,15 @@ public class MainFrame extends JFrame {
 
 		improt_video.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser("D:\\");
+				JFileChooser fileChooser = new JFileChooser("D:\\Tomcat\\apache-tomcat-9.0.16\\webapps\\ROOT\\");
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("视频文件（MP4）", "MP4");// 设置文件过滤器，只列出JPG或GIF格式的图片
 				fileChooser.setFileFilter(filter);
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int returnVal = fileChooser.showOpenDialog(fileChooser);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					String filePath = fileChooser.getSelectedFile().getAbsolutePath();// 这个就是你选择的文件夹的路径
+					String filePath = fileChooser.getSelectedFile().getName();// 这个就是你选择的文件夹的路径
 					System.out.println(filePath);
-					pictureArrayList.add(filePath);
+					videoArrayList.add(filePath);
 					video_comboBox.addItem(filePath);
 				}
 			}
@@ -246,13 +255,19 @@ public class MainFrame extends JFrame {
 
 		update_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				UserUpdate userUpdate = new UserUpdate(nameString);
+				UserUpdateFrame userUpdate = new UserUpdateFrame(nameString);
 				userUpdate.setVisible(true);
 			}
 		});
 
 		screen_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				for (int i = 0; i < ip_combobox.getItemCount(); i++) {
+					IpAdress ip = new IpAdress();
+					ip.setIp((String) ip_combobox.getItemAt(i));
+					Iplist.add(ip);
+				}
+				
 
 				ScreenshotsFrame screenshotsFrame = new ScreenshotsFrame(Iplist,nameString);
 
@@ -269,33 +284,40 @@ public class MainFrame extends JFrame {
 
 		apply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String ipString = ip_combobox.getSelectedItem().toString();
-				try {
-					String resultString = instructionSend.sendPictureInstruction(ipString);
-					if (resultString.equals("OK")) {
-						instructionSend.addInstruction(instructionSend.getSendpicture());
-						String picturePath = pictrue_combobox.getSelectedItem().toString();
-						transfer.pushPictrue(picturePath);
-					}
-					resultString = instructionSend.sendVideoInstruction(ipString);
-					if (resultString.equals("OK")) {
-						instructionSend.addInstruction(instructionSend.getSendvideo());
-						String videoPath = video_comboBox.getSelectedItem().toString();
-						transfer.pushVideo(videoPath);
-					}
-					// 发送播放模式
-					String model = model_comboBox.getSelectedItem().toString();
-					if (model.equals("单曲循环")) {
-						instructionSend.playModel(ipString,1);
-					}else {
-						instructionSend.playModel(ipString, 2);
-					}
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						String ipString = ip_combobox.getSelectedItem().toString();
+						try {
+							String resultString = instructionSend.sendPictureInstruction(ipString);
+							System.out.println(resultString);
+							if (resultString.equals("OK")) {
+								instructionSend.addInstruction(instructionSend.getSendpicture());
+								transfer.pushPictrue(ipString,pictureArrayList);
+							}
+							resultString = instructionSend.sendVideoInstruction(ipString);
+							System.out.println(resultString);
+							if (resultString.equals("OK")) {
+								instructionSend.addInstruction(instructionSend.getSendvideo());
+								transfer.pushVideo(ipString,videoArrayList);
+							}
+							
+							String model = model_comboBox.getSelectedItem().toString();
+							if (model.equals("单曲循环")) {
+								instructionSend.playModel(ipString,1);
+							}else {
+								instructionSend.playModel(ipString, 2);
+							}
 
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());
-					// TODO Auto-generated catch block
-					// e.printStackTrace();
-				}
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null, e.getMessage());
+							// TODO Auto-generated catch block
+							// e.printStackTrace();
+						}
+					}
+				}).start(); 
+				
 			}
 		});
 
@@ -334,5 +356,4 @@ public class MainFrame extends JFrame {
 		});
 
 	}
-
 }

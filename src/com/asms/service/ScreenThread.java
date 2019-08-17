@@ -29,13 +29,16 @@ public class ScreenThread implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
+			File flFile = new File("F:\\Record");
+			if (!flFile.exists()) {
+				flFile.mkdir();
+			}
 			
-			FileOutputStream fos = new FileOutputStream("d:\\jietu.jpg");
+			FileOutputStream fos = new FileOutputStream("F:\\Record\\"+System.currentTimeMillis()+".jpg");
 			InputStream is = socket.getInputStream();
 			byte[] buff = new byte[1024];
 			int len = 0;
 			while ((len = is.read(buff)) != -1) {
-				System.out.println(new String(buff,0,len));
 				fos.write(buff,0,len);
 				fos.flush();
 			}

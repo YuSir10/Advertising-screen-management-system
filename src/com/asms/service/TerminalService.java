@@ -12,9 +12,9 @@ import javax.swing.JComboBox;
 
 import com.asms.dao.TerminalDao;
 import com.asms.res.IpAdress;
-import com.asms.res.TerminalThread;
 
-public class Terminal {
+
+public class TerminalService {
 	private static  ArrayList<IpAdress> ipList = new ArrayList<IpAdress>();
 	 
 	private TerminalDao terminalDao = new TerminalDao();
@@ -26,6 +26,7 @@ public class Terminal {
 		while (true) {
 			IpAdress terminalIp  = new IpAdress();
 			Socket clientSocket = serverSocket.accept();
+			System.out.println("Á¬½Ó");
 			InputStream is = clientSocket.getInputStream();
 			byte[] ipbuff = new byte[1024];
 			int len = is.read(ipbuff);

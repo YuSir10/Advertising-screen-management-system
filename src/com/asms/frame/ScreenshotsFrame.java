@@ -28,7 +28,7 @@ import javax.swing.JPanel;
 
 import com.asms.res.IpAdress;
 import com.asms.res.PictrueLable;
-import com.asms.service.InstructionSend;
+import com.asms.service.InstructionService;
 import com.asms.service.ScreenshotsService;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -42,7 +42,7 @@ public class ScreenshotsFrame extends JFrame {
 	private String username;
 	private ArrayList<IpAdress> iplist = new ArrayList<IpAdress>();
 	private ScreenshotsService screenshotsService = new ScreenshotsService();
-	private InstructionSend instructionSend = new InstructionSend(username);
+	private InstructionService instructionSend = new InstructionService(username);
 	private static boolean flag = true;
 
 	public ScreenshotsFrame(ArrayList<IpAdress> iplist, String nameString)  {
@@ -99,29 +99,29 @@ public class ScreenshotsFrame extends JFrame {
 		start_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				flag = true ;
-				
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						File pictrue = new File("d:\\jietu.jpg");
-						while(flag) {
-							if (pictrue.exists()) {
-								JPanel pictrueLable = new PictrueLable();
-						        pictrue_panel.add(pictrueLable);
-						        pictrueLable.setVisible(true);
-						        try {
-									Thread.sleep(3000);
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-						        System.out.println(flag);
-						        pictrue_panel.remove(pictrueLable);
-							}
-						}
-						
-					}
-				}).start();
+//				
+//				new Thread(new Runnable() {
+//					@Override
+//					public void run() {
+//						File pictrue = new File("d:\\jietu.jpg");
+//						while(flag) {
+//							if (pictrue.exists()) {
+//								JPanel pictrueLable = new PictrueLable();
+//						        pictrue_panel.add(pictrueLable);
+//						        pictrueLable.setVisible(true);
+//						        try {
+//									Thread.sleep(3000);
+//								} catch (InterruptedException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+//						        System.out.println(flag);
+//						        pictrue_panel.remove(pictrueLable);
+//							}
+//						}
+//						
+//					}
+//				}).start();
 				
 //				File pictrue = new File("d:\\jietu.jpg");
 //				if (pictrue.exists()) {
@@ -137,24 +137,32 @@ public class ScreenshotsFrame extends JFrame {
 //			        p.add(panel);//如果覆盖的是pain()方法，按钮会被
 //			        getContentPane().add(p);
 //			        setVisible(true);
-//				try {
-//					String resultString = instructionSend.screenStart(ip_comboBox.getSelectedItem().toString());
-//					if (resultString.equals("OK")) {
-//						screenshotsService.getPictrue();
-//					}
-//					} catch (Exception e) {
-//						JOptionPane.showMessageDialog(null, e.getMessage());
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-				}
-			
+				new Thread (new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						try {
+							String resultString = instructionSend.screenStart(ip_comboBox.getSelectedItem().toString());
+							if (resultString.equals("OK")) {
+								screenshotsService.getPictrue();
+							}
+							} catch (Exception e) {
+								JOptionPane.showMessageDialog(null, e.getMessage());
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					
+					
+				}).start();
+				
 				
 				
 			
 
 
-				
+			}
 				
 			
 		});

@@ -20,7 +20,7 @@ import com.asms.dao.InstructionDAO;
  * @author гугугу
  *
  */
-public class InstructionSend {
+public class InstructionService {
 	private String ip;
 	private static final int INStRUCTINON_PORT = 7755;
 	private static final String SENDPICTURE = "send_picture";
@@ -36,7 +36,7 @@ public class InstructionSend {
 	private String ipAdress;
 	private InstructionDAO instructionDAO = new InstructionDAO();
 
-	public InstructionSend(String managerName) {
+	public InstructionService(String managerName) {
 		// TODO Auto-generated constructor stub
 		this.managerName = managerName;
 		

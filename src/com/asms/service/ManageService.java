@@ -11,7 +11,7 @@ import com.asms.res.User;
  * @author Administrator
  *
  */
-public class ManageUser {
+public class ManageService {
 	ManagerDao managerDao = new ManagerDao();
 	/**
 	 * ×¢²áÕËºÅÌí¼Ó
