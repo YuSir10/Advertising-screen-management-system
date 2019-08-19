@@ -3,6 +3,7 @@ package com.asms.frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -54,26 +55,30 @@ public class LogInFrame extends JFrame{
 			/**
 			 * 登陆点击事件
 			 */
+				
 				String name=text_name.getText();
 				String password=text_password.getText();
 				ManageService ls=new ManageService();
-				  try {
-					int no= ls.login(name,password);
-					JOptionPane.showMessageDialog(null, "登陆成功");
-					MainFrame mainFrame = new MainFrame(name, password);
-					mainFrame.setVisible(true);
-					dispose();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null,e1.getMessage());
-					text_name.setText("");
-					text_password.setText("");
-					//e1.printStackTrace();
-				}
-				  
-				 
+//				String res="^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$";
+//			    boolean b =Pattern.matches(res, name);
+			 //  if (b=true) {
+				   try {
+						int no= ls.login(name,password);
+						JOptionPane.showMessageDialog(null, "登陆成功");
+						MainFrame mainFrame = new MainFrame(name, password);
+						mainFrame.setVisible(true);
+						dispose();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null,e1.getMessage());
+						text_name.setText("");
+						text_password.setText("");
+						//e1.printStackTrace();
+					}
+//			}else{
+//				JOptionPane.showMessageDialog(null,"用户名输入有误（汉字，字母，数字的组合）");
+//			}
 				
-				  
 				  
 			}
 		});

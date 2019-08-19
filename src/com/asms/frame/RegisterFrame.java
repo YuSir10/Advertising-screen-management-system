@@ -4,6 +4,7 @@ import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -56,15 +57,22 @@ public class RegisterFrame extends JFrame{
 				String name=text_name.getText();
 				String password=text_password.getText();
 				ManageService ls=new ManageService(); 
-				try {
-					int no=ls.registered(name, password);
-					JOptionPane.showMessageDialog(null, "注册成功");
-					dispose();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null,e1.getMessage());
-					//e1.printStackTrace();
+				String res="^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){4,19}$";
+			    boolean b =Pattern.matches(res, name);
+			    if (b) {
+			    	try {
+						int no=ls.registered(name, password);
+						JOptionPane.showMessageDialog(null, "注册成功");
+						dispose();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null,e1.getMessage());
+						//e1.printStackTrace();
+					}
+				}else{
+					JOptionPane.showMessageDialog(null, "用户名输入有误（只能输入5-20个以字母开头、可带数字、“_”、“.”的字串）");
 				}
+			
 				
 			}
 		});
